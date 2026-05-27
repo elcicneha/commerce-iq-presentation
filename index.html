@@ -183,9 +183,9 @@
   .slide.s4 { background: var(--cream); color: var(--ink); }
 
   .sm-headline { position: absolute; top: 122px; left: 72px; width: 700px; font-family: "Lora", serif; font-weight: 500; font-size: 38px; line-height: 1.2; letter-spacing: -0.015em; color: var(--forest); }
-  .sm-subhead  { position: absolute; top: 242px; left: 72px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.35; }
+  .sm-subhead  { position: absolute; top: 206px; left: 72px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.35; }
 
-  .sm-cards { position: absolute; top: 286px; left: 72px; right: 72px; display: flex; gap: 24px; }
+  .sm-cards { position: absolute; top: 250px; left: 72px; right: 72px; display: flex; gap: 24px; }
   .sm-card {
     flex: 1; border-radius: 14px;
     border: 1px solid rgba(31,27,22,0.09);
@@ -244,6 +244,9 @@
   .sm-cdesc { font-size: 14px; line-height: 1.65; color: var(--ink); opacity: 0.55; }
   .sm-ctag  { display: inline-block; margin-top: 12px; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); opacity: 0.8; }
   .sm-ctag.ok { color: var(--forest); }
+  .sm-subnote { margin-top: 14px; padding: 10px 13px; border-left: 2px solid var(--terracotta); background: rgba(201,111,74,0.06); border-radius: 0 5px 5px 0; }
+  .sm-subnote-kicker { font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); opacity: 0.7; margin-bottom: 5px; }
+  .sm-subnote-body { font-size: 11.5px; line-height: 1.6; color: var(--ink); opacity: 0.55; }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 5 — Brand decision (was slide 3)
@@ -615,8 +618,7 @@
           <p class="sm-chat-label">@koshabot</p>
           <div class="sm-bubble-out">paid 450 at Big Bazaar</div>
           <div class="sm-bubble-in">
-            <span class="sm-tick">✓</span>₹450 · Groceries
-            <div class="sm-bubble-ask">Mark as shared?</div>
+            <span class="sm-tick">✓</span>₹450 · Groceries · shared
           </div>
         </div>
         <div>
@@ -649,6 +651,10 @@
           <p class="sm-cname">Quick-entry table</p>
           <p class="sm-cdesc">Fast for power users — scan and tick in bulk. But it still demands intent. Reluctant trackers will bounce.</p>
           <span class="sm-ctag">fast, but effortful</span>
+          <div class="sm-subnote">
+            <p class="sm-subnote-kicker">interaction consideration</p>
+            <p class="sm-subnote-body">Tab moves to next field. Enter commits the row. Arrow keys navigate. Same muscle memory as Excel — no context switch for people already living in spreadsheets.</p>
+          </div>
         </div>
       </div>
 
@@ -977,13 +983,10 @@
       <p class="eyebrow">09 / What's next</p>
       <h2>If I had 3 more weeks.</h2>
       <ul class="s8-list">
-        <li>Account Aggregator integration — real bank data, automatic sync, zero manual entry</li>
-        <li>The WhatsApp bot — forward a screenshot, done. MVP for reluctant trackers</li>
-        <li>Settlement engine — "you owe each other ₹340 this month. Settle?"</li>
-        <li>Recurring expense detection — pre-mark rent, Netflix, subscriptions</li>
-        <li>Aarav's view vs Sneha's view — one product, two modes of seeing it</li>
+        <li>The proportional split. If Aarav earns 1.5× more, the couple may wanna split by income proportion. Adding that option.</li>
+        <li>Category-wise split. Some expenses might not be shared equally. Some married couples I know, split groveries 50/50 but rent is income-based.</li>
       </ul>
-      <p class="s8-note">The proof of concept is live. The shortcuts are documented. The thinking is real.</p>
+      <p class="s8-note">The hard part was never the tracking. It's making shared money feel fair — and designing for that.</p>
     </div>
   </section>
 
