@@ -27,40 +27,30 @@
     font-family: "Nunito", sans-serif;
   }
 
-  /* ── Fixed-size deck, scaled by JS ────────────────────── */
   .deck {
-    width: 1280px;
-    height: 720px;
-    position: absolute;
-    top: 50%; left: 50%;
-    /* JS sets scale; translate(-50%,-50%) keeps it centered regardless of scale */
+    width: 1280px; height: 720px;
+    position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     transform-origin: center center;
-    overflow: hidden;
-    border-radius: 10px;
+    overflow: hidden; border-radius: 10px;
     box-shadow: 0 40px 100px rgba(0,0,0,0.6);
     background: var(--cream);
   }
 
-  /* ── Slides ────────────────────────────────────────────── */
   .slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
+    position: absolute; inset: 0;
+    opacity: 0; pointer-events: none;
     transition: opacity 300ms ease;
   }
   .slide.active { opacity: 1; pointer-events: auto; }
 
-  /* ── Progress + Controls ───────────────────────────────── */
   .progress {
     position: absolute; bottom: 0; left: 0; right: 0;
     height: 4px; background: rgba(0,0,0,0.12); z-index: 10;
   }
   .progress span {
     display: block; height: 100%; width: 0;
-    background: var(--terracotta);
-    transition: width 300ms ease;
+    background: var(--terracotta); transition: width 300ms ease;
   }
   .controls {
     position: absolute; right: 20px; bottom: 20px;
@@ -71,8 +61,7 @@
     background: rgba(31,27,22,0.28); color: #fff;
     font-size: 17px; cursor: pointer;
     display: grid; place-items: center;
-    backdrop-filter: blur(8px);
-    transition: background 150ms;
+    backdrop-filter: blur(8px); transition: background 150ms;
   }
   .controls button:hover  { background: rgba(31,27,22,0.5); }
   .controls button:disabled { opacity: 0.3; cursor: default; }
@@ -83,122 +72,41 @@
   }
 
   /* ══════════════════════════════════════════════════════
-     SLIDE 1
+     SLIDE 1 — Intro
   ══════════════════════════════════════════════════════ */
-  .slide.s1 {
-    background: var(--cream);
-    color: var(--forest);
-  }
-  /* shared dot-grid background — used on cream slides */
+  .slide.s1 { background: var(--cream); color: var(--forest); }
+
   .slide-dots::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
     background-image: radial-gradient(rgba(31,27,22,0.02) 1px, transparent 1px);
     background-size: 3px 3px;
   }
 
-  /* top header strip */
   .s1-header {
     position: absolute; top: 48px; left: 72px;
     display: flex; align-items: center; gap: 16px;
   }
-  .s1-wordmark {
-    font-family: "Lora", serif;
-    font-style: italic; font-weight: 500;
-    font-size: 22px; letter-spacing: -0.01em;
-    color: var(--forest);
-  }
-  .s1-rule {
-    width: 64px; height: 1px;
-    background: var(--terracotta); opacity: 0.6;
-  }
-  .s1-meta {
-    font-size: 12px; letter-spacing: 0.22em;
-    text-transform: uppercase; color: var(--terracotta);
-    font-weight: 600; opacity: 0.85;
-  }
+  .s1-wordmark { font-family: "Lora", serif; font-style: italic; font-weight: 500; font-size: 22px; letter-spacing: -0.01em; color: var(--forest); }
+  .s1-rule { width: 64px; height: 1px; background: var(--terracotta); opacity: 0.6; }
+  .s1-meta { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terracotta); font-weight: 600; opacity: 0.85; }
 
-  /* main copy — left half */
-  .s1-body {
-    position: absolute;
-    top: 50%; left: 72px;
-    transform: translateY(-50%);
-    max-width: 580px;
-  }
-  .s1-kicker {
-    font-size: 13px; font-weight: 700;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--terracotta);
-    margin-bottom: 24px;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .s1-kicker .amp {
-    font-family: "Lora", serif; font-style: italic;
-    font-weight: 400; font-size: 20px;
-    letter-spacing: 0; color: var(--forest);
-  }
-  .s1-h1 {
-    font-family: "Lora", serif;
-    font-weight: 500; font-size: 54px;
-    line-height: 1.14; letter-spacing: -0.015em;
-    color: var(--forest);
-  }
-  .s1-h1 em {
-    font-style: italic; color: var(--terracotta);
-  }
-  .s1-accent {
-    background-image: linear-gradient(transparent 60%, rgba(201,111,74,0.28) 10%);
-    background-size: 100% 100%; padding: 0 2px;
-  }
+  .s1-body { position: absolute; top: 50%; left: 72px; transform: translateY(-50%); max-width: 580px; }
+  .s1-kicker { font-size: 13px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
+  .s1-kicker .amp { font-family: "Lora", serif; font-style: italic; font-weight: 400; font-size: 20px; letter-spacing: 0; color: var(--forest); }
+  .s1-h1 { font-family: "Lora", serif; font-weight: 500; font-size: 54px; line-height: 1.14; letter-spacing: -0.015em; color: var(--forest); }
+  .s1-h1 em { font-style: italic; color: var(--terracotta); }
+  .s1-accent { background-image: linear-gradient(transparent 60%, rgba(201,111,74,0.28) 10%); background-size: 100% 100%; padding: 0 2px; }
 
-  /* personas — absolute bottom-right */
-  .s1-personas {
-    position: absolute;
-    right: 64px; bottom: 56px;
-    display: flex;
-    align-items: flex-end;
-    gap: 0;
-  }
-  .s1-persona {
-    display: flex; flex-direction: column;
-    align-items: center; gap: 12px;
-  }
+  .s1-personas { position: absolute; right: 64px; bottom: 56px; display: flex; align-items: flex-end; gap: 0; }
+  .s1-persona { display: flex; flex-direction: column; align-items: center; gap: 12px; }
   .s1-persona + .s1-persona { margin-left: -20px; }
+  .s1-persona:nth-child(1) { z-index: 1; transform: rotate(-7deg) translateY(20px); transform-origin: bottom center; }
+  .s1-persona:nth-child(2) { z-index: 2; transform: rotate(6deg) translateY(-28px); transform-origin: bottom center; }
 
-  /* Aarav — lean left, lower */
-  .s1-persona:nth-child(1) {
-    z-index: 1;
-    transform: rotate(-7deg) translateY(20px);
-    transform-origin: bottom center;
-  }
-  /* Sneha — lean right, higher */
-  .s1-persona:nth-child(2) {
-    z-index: 2;
-    transform: rotate(6deg) translateY(-28px);
-    transform-origin: bottom center;
-  }
-
-  .s1-blob {
-    width: 250px; height: 250;
-    overflow: hidden;
-    border-radius: 50%;
-    border: 5px solid var(--cream);
-    box-shadow: 0 12px 36px rgba(31,27,22,0.18);
-    background: var(--sand);
-    isolation: isolate;
-  }
-  .s1-persona:nth-child(1) .s1-blob {
-    width: 200px; height: 200px;
-    align-self: flex-end;
-    background: var(--sand);
-  }
-  .s1-blob img {
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-  }
-  .s1-name {
-    font-family: "Lora", serif; font-style: italic;
-    font-size: 17px; letter-spacing: 0.01em;
-  }
+  .s1-blob { width: 250px; height: 250px; overflow: hidden; border-radius: 50%; border: 5px solid var(--cream); box-shadow: 0 12px 36px rgba(31,27,22,0.18); background: var(--sand); isolation: isolate; }
+  .s1-persona:nth-child(1) .s1-blob { width: 200px; height: 200px; align-self: flex-end; }
+  .s1-blob img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .s1-name { font-family: "Lora", serif; font-style: italic; font-size: 17px; letter-spacing: 0.01em; }
   .s1-persona:nth-child(1) .s1-name { color: var(--terracotta); }
   .s1-persona:nth-child(2) .s1-name { color: var(--forest); }
 
@@ -211,12 +119,32 @@
   .slide-meta { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terracotta); font-weight: 600; opacity: 0.85; }
 
   /* ══════════════════════════════════════════════════════
-     SLIDE 2 — Getting the data
+     SLIDE 2 — The Insight (big quote)
   ══════════════════════════════════════════════════════ */
   .slide.s2 { background: var(--cream); color: var(--ink); }
 
-  .s2-headline { position: absolute; top: 122px; left: 72px; width: 510px; font-family: "Lora", serif; font-weight: 500; font-size: 38px; line-height: 1.2; letter-spacing: -0.015em; color: var(--forest); }
+  .s2-quote-wrap {
+    position: absolute; top: 50%; left: 104px;
+    transform: translateY(-50%); max-width: 960px;
+  }
+  .s2-quote {
+    font-family: "Lora", serif; font-style: italic; font-weight: 500;
+    font-size: 66px; line-height: 1.18; letter-spacing: -0.025em;
+    color: var(--forest);
+  }
+  .s2-quote em { color: var(--terracotta); font-style: italic; }
+  .s2-attr {
+    margin-top: 36px;
+    font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 700; color: var(--ink); opacity: 0.22;
+  }
 
+  /* ══════════════════════════════════════════════════════
+     SLIDE 3 — Getting the data (was slide 2)
+  ══════════════════════════════════════════════════════ */
+  .slide.s3 { background: var(--cream); color: var(--ink); }
+
+  .s2-headline { position: absolute; top: 122px; left: 72px; width: 510px; font-family: "Lora", serif; font-weight: 500; font-size: 38px; line-height: 1.2; letter-spacing: -0.015em; color: var(--forest); }
   .s2-subhead { position: absolute; top: 242px; left: 72px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.35; }
   .s2-bullets { position: absolute; top: 278px; left: 92px; list-style: none; }
 
@@ -233,7 +161,6 @@
   .s2-bullet-abbr { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); padding: 3px 7px; border-radius: 3px; background: rgba(201,111,74,0.1); }
 
   .s2-divider { position: absolute; left: 636px; top: 80px; bottom: 80px; width: 1px; background: var(--ink); opacity: 0.08; }
-
   .s2-right { position: absolute; left: 672px; top: 50%; transform: translateY(-50%); width: 496px; transition: opacity 220ms ease; }
   .s2-source-kicker { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); margin-bottom: 22px; display: flex; align-items: center; gap: 12px; }
   .s2-source-kicker::after { content: ""; flex: 1; height: 1px; background: var(--terracotta); opacity: 0.28; }
@@ -251,14 +178,81 @@
   .s2-pick-note { font-size: 14px; color: var(--ink); opacity: 0.42; margin-top: 24px; line-height: 1.65; font-style: italic; }
 
   /* ══════════════════════════════════════════════════════
-     SLIDE 3 — Brand decision
+     SLIDE 4 — Minimising effort: adding manually (new)
   ══════════════════════════════════════════════════════ */
-  .slide.s3 { background: var(--cream); color: var(--ink); }
+  .slide.s4 { background: var(--cream); color: var(--ink); }
+
+  .sm-headline { position: absolute; top: 122px; left: 72px; width: 700px; font-family: "Lora", serif; font-weight: 500; font-size: 38px; line-height: 1.2; letter-spacing: -0.015em; color: var(--forest); }
+  .sm-subhead  { position: absolute; top: 242px; left: 72px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.35; }
+
+  .sm-cards { position: absolute; top: 286px; left: 72px; right: 72px; display: flex; gap: 24px; }
+  .sm-card {
+    flex: 1; border-radius: 14px;
+    border: 1px solid rgba(31,27,22,0.09);
+    background: rgba(31,27,22,0.02);
+    padding: 24px; display: flex; flex-direction: column; gap: 20px;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 320ms ease, transform 320ms ease;
+  }
+  .sm-card.vis { opacity: 1; transform: translateY(0); }
+
+  /* Chat mockup — bot card */
+  .sm-chat-frame {
+    height: 170px; border-radius: 10px;
+    background: #1a1a1a; padding: 12px 10px;
+    display: flex; flex-direction: column; gap: 8px; overflow: hidden;
+  }
+  .sm-chat-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: rgba(255,255,255,0.2); margin-bottom: 2px; }
+  .sm-bubble-out {
+    align-self: flex-end; max-width: 75%;
+    background: #2a5c3f; border-radius: 12px 12px 3px 12px;
+    padding: 8px 12px; font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.4;
+  }
+  .sm-bubble-in {
+    align-self: flex-start; max-width: 80%;
+    background: #2c2c2c; border-radius: 12px 12px 12px 3px;
+    padding: 8px 12px; font-size: 12px; color: rgba(255,255,255,0.72); line-height: 1.4;
+  }
+  .sm-bubble-in .sm-tick { color: #6ec97a; font-weight: 700; margin-right: 5px; }
+  .sm-bubble-ask { font-size: 10px; color: rgba(255,255,255,0.38); margin-top: 3px; }
+
+  /* Grid mockup — table card */
+  .sm-grid-frame {
+    height: 170px; border-radius: 10px;
+    border: 1px solid rgba(31,27,22,0.12);
+    background: #fff; overflow: hidden;
+  }
+  .sm-grid-head {
+    display: grid; grid-template-columns: 1fr 80px 60px;
+    background: rgba(31,27,22,0.04); border-bottom: 1px solid rgba(31,27,22,0.1);
+    padding: 6px 10px;
+  }
+  .sm-grid-head span { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: rgba(31,27,22,0.35); }
+  .sm-grid-row {
+    display: grid; grid-template-columns: 1fr 80px 60px;
+    padding: 8px 10px; border-bottom: 1px solid rgba(31,27,22,0.06);
+    font-size: 12px; color: rgba(31,27,22,0.65);
+    transition: background 200ms;
+  }
+  .sm-grid-row.active { background: rgba(201,111,74,0.06); }
+  .sm-grid-row .sm-check { color: var(--forest); font-weight: 700; font-size: 11px; }
+  .sm-grid-row .sm-cursor { color: var(--terracotta); font-weight: 700; animation: blink 1s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* card text */
+  .sm-cname { font-family: "Lora", serif; font-size: 19px; font-weight: 500; color: var(--ink); margin-bottom: 7px; }
+  .sm-cdesc { font-size: 14px; line-height: 1.65; color: var(--ink); opacity: 0.55; }
+  .sm-ctag  { display: inline-block; margin-top: 12px; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); opacity: 0.8; }
+  .sm-ctag.ok { color: var(--forest); }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE 5 — Brand decision (was slide 3)
+  ══════════════════════════════════════════════════════ */
+  .slide.s5 { background: var(--cream); color: var(--ink); }
 
   .s3-headline { position: absolute; top: 122px; left: 72px; width: 510px; font-family: "Lora", serif; font-weight: 500; font-size: 38px; line-height: 1.2; letter-spacing: -0.015em; color: var(--forest); }
-
-  .s3-subhead { position: absolute; top: 242px; left: 72px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.35; }
-  .s3-bullets { position: absolute; top: 278px; left: 92px; list-style: none; }
+  .s3-subhead  { position: absolute; top: 242px; left: 72px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.35; }
+  .s3-bullets  { position: absolute; top: 278px; left: 92px; list-style: none; }
 
   .s3-bullet { position: relative; display: flex; align-items: center; gap: 14px; height: 76px; transition: opacity 360ms ease; }
   .s3-bullet::before { content: ""; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); width: 3px; height: 0; background: var(--terracotta); border-radius: 2px; transition: height 280ms ease, opacity 280ms ease; opacity: 0; }
@@ -266,113 +260,77 @@
 
   .s3-verdict-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; opacity: 0; transition: opacity 300ms ease; }
   .s3-verdict-icon.show { opacity: 1; }
-  .s3-verdict-icon.pass { background: var(--forest); color: var(--cream); }
-  .s3-verdict-icon.fail { background: var(--terracotta); color: var(--cream); }
+  .s3-verdict-icon.pass  { background: var(--forest); color: var(--cream); }
+  .s3-verdict-icon.fail  { background: var(--terracotta); color: var(--cream); }
   .s3-verdict-icon.maybe { background: var(--terracotta); color: var(--cream); font-size: 16px; }
 
   .s3-bullet-name { font-family: "Lora", serif; font-size: 23px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); }
-  .s3-bullet-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); padding: 3px 7px; border-radius: 3px; background: rgba(201,111,74,0.1); }
+  .s3-bullet-tag  { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); padding: 3px 7px; border-radius: 3px; background: rgba(201,111,74,0.1); }
 
   .s3-divider { position: absolute; left: 636px; top: 80px; bottom: 80px; width: 1px; background: var(--ink); opacity: 0.08; }
-
-  .s3-right { position: absolute; left: 672px; top: 50%; transform: translateY(-50%); width: 496px; transition: opacity 220ms ease; }
+  .s3-right   { position: absolute; left: 672px; top: 50%; transform: translateY(-50%); width: 496px; transition: opacity 220ms ease; }
   .s3-source-kicker { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); margin-bottom: 22px; display: flex; align-items: center; gap: 12px; }
   .s3-source-kicker::after { content: ""; flex: 1; height: 1px; background: var(--terracotta); opacity: 0.28; }
-  .s3-right-what { font-size: 15px; line-height: 1.6; color: var(--ink); opacity: 0.55; margin-bottom: 20px; }
-  .s3-right-title { font-family: "Lora", serif; font-size: 32px; font-weight: 500; line-height: 1.18; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 18px; }
-  .s3-right-body { font-size: 17px; line-height: 1.72; color: var(--ink); opacity: 0.7; margin-bottom: 26px; }
+  .s3-right-title    { font-family: "Lora", serif; font-size: 32px; font-weight: 500; line-height: 1.18; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 18px; }
+  .s3-right-body     { font-size: 17px; line-height: 1.72; color: var(--ink); opacity: 0.7; margin-bottom: 26px; }
   .s3-right-footnote { font-size: 15px; line-height: 1.6; color: var(--ink); opacity: 0.7; border-left: 2px solid rgba(201,111,74,0.45); padding-left: 16px; font-style: italic; }
 
   .s3-pick-label { font-family: "Lora", serif; font-style: italic; font-size: 15px; color: var(--terracotta); margin-bottom: 22px; }
-  .s3-palette { display: flex; gap: 14px; margin-bottom: 26px; }
-  .s3-swatch { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .s3-palette    { display: flex; gap: 14px; margin-bottom: 26px; }
+  .s3-swatch     { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 12px; }
   .s3-swatch-block { width: 60px; height: 60px; border-radius: 10px; box-shadow: 0 4px 14px rgba(31,27,22,0.13); }
   .s3-swatch-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.4; }
-  .s3-type-row { display: flex; align-items: baseline; gap: 16px; border-bottom: 1px solid rgba(31,27,22,0.08); margin-top: 18px; padding-bottom: 20px; }
+  .s3-type-row   { display: flex; align-items: baseline; gap: 16px; border-bottom: 1px solid rgba(31,27,22,0.08); margin-top: 18px; padding-bottom: 20px; }
   .s3-type-specimen { font-family: "Lora", serif; font-size: 26px; font-weight: 500; color: var(--forest); }
-  .s3-type-meta { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.35; }
-  .s3-principle { font-family: "Lora", serif; font-style: italic; font-size: 22px; font-weight: 500; color: var(--forest); line-height: 1.4; margin-top: 12px; margin-bottom: 28px; }
+  .s3-type-meta  { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.35; }
+  .s3-principle  { font-family: "Lora", serif; font-style: italic; font-size: 22px; font-weight: 500; color: var(--forest); line-height: 1.4; margin-top: 12px; margin-bottom: 28px; }
 
-  /* moodboard pile */
   .s3-moodboard { position: relative; height: 300px; margin-bottom: 24px; }
   .s3-moodboard-img {
     position: absolute; top: 0; left: 0;
-    width: 300px; height: 240px;
-    object-fit: cover;
-    border-radius: 5px;
-    border: 3px solid var(--cream);
+    width: 300px; height: 240px; object-fit: cover;
+    border-radius: 5px; border: 3px solid var(--cream);
     box-shadow: 0 8px 24px rgba(31,27,22,0.3);
-    transition: transform 420ms cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 300ms ease;
+    transition: transform 420ms cubic-bezier(0.34,1.4,0.64,1), box-shadow 300ms ease;
     cursor: default;
   }
-  /* thrown pile — each slightly offset and rotated */
-  .s3-moodboard-img:nth-child(1) { transform: rotate(-9deg) translate(6px, 16px); z-index: 1; }
-  .s3-moodboard-img:nth-child(2) { transform: rotate(6deg)  translate(20px, 6px); z-index: 2; }
-  .s3-moodboard-img:nth-child(3) { transform: rotate(-3deg) translate(12px, 0px); z-index: 3; }
-  /* hover — fan out left to right */
+  .s3-moodboard-img:nth-child(1) { transform: rotate(-9deg) translate(6px, 16px);  z-index: 1; }
+  .s3-moodboard-img:nth-child(2) { transform: rotate(6deg)  translate(20px, 6px);  z-index: 2; }
+  .s3-moodboard-img:nth-child(3) { transform: rotate(-3deg) translate(12px, 0px);  z-index: 3; }
   .s3-moodboard:hover .s3-moodboard-img { box-shadow: 0 14px 36px rgba(31,27,22,0.22); }
-  .s3-moodboard:hover .s3-moodboard-img:nth-child(1) { transform: rotate(-5deg) translate(-250px, 14px); }
-  .s3-moodboard:hover .s3-moodboard-img:nth-child(2) { transform: rotate(3deg)  translate(80px, 2px); }
-  .s3-moodboard:hover .s3-moodboard-img:nth-child(3) { transform: rotate(2deg) translate(-10px, 250px); }
+  .s3-moodboard:hover .s3-moodboard-img:nth-child(1) { transform: rotate(-5deg) translate(-250px,14px); }
+  .s3-moodboard:hover .s3-moodboard-img:nth-child(2) { transform: rotate(3deg)  translate(80px,2px); }
+  .s3-moodboard:hover .s3-moodboard-img:nth-child(3) { transform: rotate(2deg)  translate(-10px,250px); }
 
   /* ══════════════════════════════════════════════════════
-     SLIDE 4 — User Journey
+     SLIDE 6 — User Journey (was slide 4)
   ══════════════════════════════════════════════════════ */
-  .slide.s4 { background: #243c33; color: var(--cream); }
+  .slide.s6 { background: #243c33; color: var(--cream); }
+  .s6 .slide-wordmark { color: var(--cream); }
+  .s6 .slide-rule     { background: rgba(248,243,228,0.35); }
+  .s6 .slide-meta     { color: rgba(232,217,184,0.75); }
 
-  /* header on dark bg */
-  .s4 .slide-wordmark { color: var(--cream); }
-  .s4 .slide-rule     { background: rgba(248,243,228,0.35); }
-  .s4 .slide-meta     { color: rgba(232,217,184,0.75); }
+  .s4-hl  { position: absolute; top: 108px; left: 72px; font-family: "Lora", serif; font-style: italic; font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.02em; color: var(--cream); }
+  .s4-sub { position: absolute; top: 163px; left: 72px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); opacity: 0.28; font-weight: 600; }
 
-  .s4-hl {
-    position: absolute; top: 108px; left: 72px;
-    font-family: "Lora", serif; font-style: italic; font-weight: 500;
-    font-size: 44px; line-height: 1; letter-spacing: -0.02em; color: var(--cream);
-  }
-  .s4-sub {
-    position: absolute; top: 163px; left: 72px;
-    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--cream); opacity: 0.28; font-weight: 600;
-  }
-
-  /* flow area */
   .s4-flow-area { position: absolute; top: 208px; left: 72px; }
   .s4-flow-lbl  { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terracotta); font-weight: 700; opacity: 0.9; margin-bottom: 14px; }
   .s4-row       { display: flex; align-items: center; }
 
-  .s4-nd {
-    padding: 8px 16px; border-radius: 20px;
-    border: 1.5px solid rgba(248,243,228,0.2);
-    background: rgba(248,243,228,0.06);
-    font-size: 13px; font-weight: 600; color: rgba(248,243,228,0.72); white-space: nowrap;
-  }
+  .s4-nd    { padding: 8px 16px; border-radius: 20px; border: 1.5px solid rgba(248,243,228,0.2); background: rgba(248,243,228,0.06); font-size: 13px; font-weight: 600; color: rgba(248,243,228,0.72); white-space: nowrap; }
   .s4-nd-hl { background: rgba(248,243,228,0.14); border-color: rgba(248,243,228,0.38); color: var(--cream); }
+  .s4-arr   { width: 28px; text-align: center; color: var(--terracotta); font-size: 13px; opacity: 0.55; flex-shrink: 0; }
 
-  .s4-arr { width: 28px; text-align: center; color: var(--terracotta); font-size: 13px; opacity: 0.55; flex-shrink: 0; }
-
-  /* bank fork */
   .s4-bankwrap { position: relative; }
-  .s4-bankwrap::after {
-    content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-    width: 1px; height: 8px; background: rgba(248,243,228,0.18);
-  }
-  .s4-bankfork {
-    position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 5px; pointer-events: none;
-  }
+  .s4-bankwrap::after { content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); width: 1px; height: 8px; background: rgba(248,243,228,0.18); }
+  .s4-bankfork { position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 5px; pointer-events: none; }
   .s4-fork-lbl { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream); opacity: 0.25; white-space: nowrap; font-weight: 600; }
   .s4-fork-row { display: flex; gap: 6px; align-items: center; }
   .s4-nd-alt   { padding: 5px 11px; border-radius: 14px; border: 1.5px dashed rgba(248,243,228,0.18); font-size: 11px; font-weight: 600; color: rgba(248,243,228,0.38); white-space: nowrap; }
   .s4-fork-sep { font-size: 9px; color: rgba(248,243,228,0.2); font-style: italic; }
 
-  /* patterns section */
-  .s4-pat { position: absolute; top: 422px; left: 72px; right: 64px; }
-  .s4-pat-kicker {
-    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--terracotta); font-weight: 700; margin-bottom: 14px;
-    display: flex; align-items: center; gap: 12px;
-  }
+  .s4-pat        { position: absolute; top: 422px; left: 72px; right: 64px; }
+  .s4-pat-kicker { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terracotta); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
   .s4-pat-kicker::after { content: ""; flex: 1; height: 1px; background: var(--terracotta); opacity: 0.2; }
   .s4-cards { display: flex; gap: 16px; }
 
@@ -386,17 +344,13 @@
   }
   .s4-card.vis { opacity: 1; transform: translateY(0); }
 
-  /* phone frame */
   .s4-phone {
     width: 88px; height: 148px; border-radius: 12px;
     border: 2px solid rgba(248,243,228,0.24);
     background: rgba(0,0,0,0.32); flex-shrink: 0;
     position: relative; overflow: hidden;
   }
-  .s4-phone::before {
-    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 22px; height: 3px; background: rgba(248,243,228,0.18); border-radius: 0 0 3px 3px; z-index: 1;
-  }
+  .s4-phone::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 22px; height: 3px; background: rgba(248,243,228,0.18); border-radius: 0 0 3px 3px; z-index: 1; }
   .s4-sc   { padding: 8px 6px 0; }
   .s4-trow { display: flex; align-items: center; gap: 5px; padding: 4px 2px; border-bottom: 1px solid rgba(248,243,228,0.06); }
   .s4-trow.hi { background: rgba(248,243,228,0.09); border-radius: 3px; }
@@ -405,58 +359,165 @@
   .s4-tln  { height: 3px; border-radius: 2px; background: rgba(248,243,228,0.2); margin-bottom: 3px; }
   .s4-tln:last-child { width: 55%; opacity: 0.55; margin-bottom: 0; }
 
-  /* p1 buttons */
   .s4-btns { display: flex; justify-content: space-between; padding: 4px 2px 0; }
   .s4-y    { padding: 2px 7px; border-radius: 3px; background: rgba(47,93,79,0.9); border: 1px solid rgba(248,243,228,0.3); color: var(--cream); font-size: 8px; font-weight: 700; }
   .s4-n    { padding: 2px 7px; border-radius: 3px; border: 1px solid rgba(248,243,228,0.18); color: rgba(248,243,228,0.42); font-size: 8px; }
 
-  /* p2 checkboxes */
   .s4-cb   { width: 10px; height: 10px; border-radius: 2px; border: 1.5px solid rgba(248,243,228,0.28); flex-shrink: 0; }
   .s4-cb.on { background: var(--terracotta); border-color: var(--terracotta); }
   .s4-cfirm { margin: 5px 3px 0; padding: 4px 0; border-radius: 4px; background: rgba(248,243,228,0.1); text-align: center; font-size: 7px; font-weight: 700; color: rgba(248,243,228,0.8); }
 
-  /* p3 swipe */
   .s4-swlbls { display: flex; justify-content: space-between; padding: 5px 3px 3px; font-size: 8px; color: rgba(248,243,228,0.3); }
   .s4-swcard { margin: 0 4px; padding: 9px 7px 8px; border-radius: 7px; background: rgba(248,243,228,0.1); border: 1px solid rgba(248,243,228,0.14); }
 
-  /* card text */
   .s4-ctxt  { flex: 1; }
   .s4-cname { font-family: "Lora", serif; font-size: 17px; font-weight: 500; color: var(--cream); margin-bottom: 7px; line-height: 1.2; }
   .s4-cdesc { font-size: 12px; color: rgba(248,243,228,0.42); line-height: 1.55; }
   .s4-ctag  { display: inline-block; margin-top: 10px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); opacity: 0.8; }
 
   /* ══════════════════════════════════════════════════════
-     SLIDE 5
+     SLIDE 7 — Minimising effort: marking as shared (new)
   ══════════════════════════════════════════════════════ */
-  .slide.s5 { background: var(--ink); color: var(--cream); }
+  .slide.s8 { background: #1a2e27; color: var(--cream); }
+  .s8 .slide-wordmark { color: var(--cream); }
+  .s8 .slide-rule     { background: rgba(248,243,228,0.35); }
+  .s8 .slide-meta     { color: rgba(232,217,184,0.75); }
+
+  .s7-hl  { position: absolute; top: 108px; left: 72px; font-family: "Lora", serif; font-style: italic; font-weight: 500; font-size: 40px; line-height: 1.12; letter-spacing: -0.02em; color: var(--cream); max-width: 780px; }
+  .s7-sub { position: absolute; top: 208px; left: 72px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream); opacity: 0.28; font-weight: 600; }
+
+  .s7-pat { position: absolute; top: 244px; left: 72px; right: 64px; }
+  .s7-pat-kicker { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terracotta); font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+  .s7-pat-kicker::after { content: ""; flex: 1; height: 1px; background: var(--terracotta); opacity: 0.2; }
+  .s7-cards { display: flex; gap: 16px; }
+
+  /* reuse s4-card visual style via .s7-card class */
+  .s7-card {
+    flex: 1; border-radius: 12px;
+    border: 1px solid rgba(248,243,228,0.08);
+    background: rgba(248,243,228,0.04);
+    padding: 16px; display: flex; gap: 16px; align-items: flex-start;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+  .s7-card.vis { opacity: 1; transform: translateY(0); }
+
+  /* phone frame — same as s4-phone */
+  .s7-phone {
+    width: 88px; height: 168px; border-radius: 12px;
+    border: 2px solid rgba(248,243,228,0.24);
+    background: rgba(0,0,0,0.35); flex-shrink: 0;
+    position: relative; overflow: hidden;
+  }
+  .s7-phone::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 22px; height: 3px; background: rgba(248,243,228,0.18); border-radius: 0 0 3px 3px; z-index: 1; }
+
+  /* card 1: cursor stays — transaction + yes/no (reuse s4 atoms) */
+  .s7-sc  { padding: 8px 6px 0; }
+
+  /* card 2: category ML */
+  .s7-cats { padding: 10px 7px; }
+  .s7-cat-hd { font-size: 7px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: rgba(248,243,228,0.28); margin-bottom: 7px; }
+  .s7-cat-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid rgba(248,243,228,0.06); font-size: 9px; color: rgba(248,243,228,0.45); gap: 4px; }
+  .s7-cat-row.on { color: rgba(248,243,228,0.85); }
+  .s7-cat-nm { flex: 1; }
+  .s7-toggle { width: 22px; height: 11px; border-radius: 11px; background: rgba(248,243,228,0.14); flex-shrink: 0; position: relative; }
+  .s7-toggle.on { background: var(--terracotta); }
+  .s7-toggle.on::after { content: ""; position: absolute; right: 2px; top: 2px; width: 7px; height: 7px; border-radius: 50%; background: #fff; }
+  .s7-toggle::after    { content: ""; position: absolute; left: 2px;  top: 2px; width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.4); }
+  .s7-cat-note { font-size: 7px; color: rgba(248,243,228,0.25); margin-top: 8px; line-height: 1.5; }
+
+  /* card 3: screenshot match */
+  .s7-ss { padding: 8px 6px; }
+  .s7-ss-label { font-size: 7px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: rgba(248,243,228,0.28); margin-bottom: 6px; }
+  .s7-ss-img { height: 48px; border-radius: 5px; background: rgba(248,243,228,0.08); border: 1px solid rgba(248,243,228,0.12); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-bottom: 7px; }
+  .s7-ss-arrow { text-align: center; font-size: 9px; color: var(--terracotta); opacity: 0.6; margin-bottom: 5px; }
+  .s7-ss-match { padding: 6px 7px; border-radius: 5px; background: rgba(47,93,79,0.45); border: 1px solid rgba(47,93,79,0.7); }
+  .s7-ss-tick  { font-size: 8px; font-weight: 700; color: #7bc47a; margin-bottom: 2px; }
+  .s7-ss-name  { font-size: 8px; color: rgba(248,243,228,0.65); line-height: 1.4; }
+
+  /* card text */
+  .s7-ctxt  { flex: 1; }
+  .s7-cname { font-family: "Lora", serif; font-size: 16px; font-weight: 500; color: var(--cream); margin-bottom: 7px; line-height: 1.2; }
+  .s7-cdesc { font-size: 12px; color: rgba(248,243,228,0.4); line-height: 1.55; }
+  .s7-ctag  { display: inline-block; margin-top: 10px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); opacity: 0.8; }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE 7 (new) — End goals: what each person comes for
+  ══════════════════════════════════════════════════════ */
+  .slide.sgoals { background: var(--cream); color: var(--ink); }
+
+  .sg-hl  { position: absolute; top: 108px; left: 72px; font-family: "Lora", serif; font-weight: 500; font-size: 40px; line-height: 1.12; letter-spacing: -0.02em; color: var(--forest); }
+  .sg-sub { position: absolute; top: 160px; left: 72px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); opacity: 0.32; font-weight: 600; }
+
+  .sg-mid { position: absolute; top: 195px; left: 72px; right: 72px; bottom: 220px; display: flex; gap: 0; }
+  .sg-col { flex: 1; display: flex; flex-direction: column; transition: opacity 300ms ease, transform 300ms ease; }
+  .sg-col-a { padding-right: 48px; opacity: 0; transform: translateX(-10px); }
+  .sg-col-s { padding-left: 48px; border-left: 1px solid rgba(31,27,22,0.08); opacity: 0; transform: translateX(10px); }
+  .sg-col.vis { opacity: 1; transform: translateX(0); }
+
+  .sg-persona { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  .sg-photo { width: 62px; height: 62px; border-radius: 50%; overflow: hidden; border: 3px solid var(--sand); flex-shrink: 0; box-shadow: 0 6px 18px rgba(31,27,22,0.12); }
+  .sg-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .sg-pname { font-family: "Lora", serif; font-style: italic; font-size: 23px; font-weight: 500; color: var(--forest); display: block; }
+  .sg-ptag  { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); opacity: 0.75; display: block; margin-top: 3px; }
+
+  .sg-goals { list-style: none; }
+  .sg-goal  { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(31,27,22,0.07); font-size: 15px; color: var(--ink); line-height: 1.45; }
+  .sg-goal::before { content: "→"; color: var(--terracotta); font-size: 11px; flex-shrink: 0; opacity: 0.5; margin-top: 3px; }
+  .sg-goal strong { font-weight: 700; color: var(--forest); }
+  .sg-goal.muted { opacity: 0.36; }
+
+  /* Layout wireframes */
+  .sg-layouts { position: absolute; bottom: 48px; left: 72px; right: 72px; opacity: 0; transform: translateY(8px); transition: opacity 320ms ease, transform 320ms ease; }
+  .sg-layouts.vis { opacity: 1; transform: translateY(0); }
+  .sg-lkick { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terracotta); font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+  .sg-lkick::after { content: ""; flex: 1; height: 1px; background: var(--terracotta); opacity: 0.2; }
+  .sg-lcards { display: flex; gap: 14px; }
+  .sg-lcard { flex: 1; border-radius: 10px; border: 1px solid rgba(31,27,22,0.1); background: rgba(31,27,22,0.02); padding: 12px 14px; }
+  .sg-lcard.ok { border-color: rgba(47,93,79,0.38); background: rgba(47,93,79,0.04); }
+  .sg-lcard.ok .sg-lv { color: var(--forest); }
+  .sg-lname { font-family: "Lora", serif; font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .sg-lv    { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); margin-bottom: 7px; }
+  .sg-ldesc { font-size: 12px; color: var(--ink); opacity: 0.42; line-height: 1.5; }
+
+  /* Mini wireframe sketch inside each layout card */
+  .sg-wf { height: 58px; border-radius: 5px; background: rgba(31,27,22,0.04); border: 1px solid rgba(31,27,22,0.08); margin-bottom: 8px; padding: 5px 6px; overflow: hidden; display: flex; flex-direction: column; gap: 3px; }
+  .sg-wf-b { border-radius: 3px; background: rgba(31,27,22,0.1); }
+  .sg-wf-b.hl  { background: rgba(47,93,79,0.22); }
+  .sg-wf-b.tc  { background: rgba(201,111,74,0.22); }
+  .sg-wf-b.tall { height: 24px; }
+  .sg-wf-b.mid  { height: 14px; }
+  .sg-wf-b.sm   { height: 10px; width: 60%; }
+  .sg-wf-b.xs   { height: 10px; width: 40%; }
+  .sg-wf-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE 9 — Close (was slide 8)
+  ══════════════════════════════════════════════════════ */
+  .slide.s9 { background: var(--ink); color: var(--cream); }
 
   .slide-inner {
     position: absolute; top: 50%; left: 72px;
-    transform: translateY(-50%);
-    max-width: 800px;
+    transform: translateY(-50%); max-width: 820px;
   }
-  .eyebrow {
-    font-size: 12px; letter-spacing: 0.22em;
-    text-transform: uppercase; opacity: 0.55;
-    margin-bottom: 20px;
+  .eyebrow { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.35; margin-bottom: 20px; }
+  .slide-inner h2 { font-family: "Lora", serif; font-size: 58px; font-weight: 500; line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 32px; }
+  .slide.s9 .slide-inner h2 { color: var(--cream); }
+
+  .s8-list { list-style: none; }
+  .s8-list li {
+    display: flex; align-items: baseline; gap: 14px;
+    padding: 10px 0; border-bottom: 1px solid rgba(248,243,228,0.07);
+    font-size: 18px; color: rgba(248,243,228,0.6); line-height: 1.4;
   }
-  .slide-inner h2 {
-    font-family: "Lora", serif;
-    font-size: 62px; font-weight: 500;
-    line-height: 1.08; letter-spacing: -0.02em;
-    margin-bottom: 28px;
-  }
-  .slide-inner p {
-    font-size: 22px; line-height: 1.6;
-    max-width: 46ch; opacity: 0.8;
-  }
-  .slide.s5 .slide-inner h2 { color: var(--cream); }
+  .s8-list li::before { content: "→"; color: var(--terracotta); font-size: 13px; flex-shrink: 0; opacity: 0.7; }
+  .s8-note { margin-top: 24px; font-size: 13px; color: rgba(248,243,228,0.2); font-style: italic; }
 </style>
 </head>
 <body>
 <div class="deck" id="deck">
 
-  <!-- SLIDE 1 -->
+  <!-- SLIDE 1 — Intro -->
   <section class="slide s1 slide-dots active">
     <header class="s1-header">
       <span class="s1-wordmark">kosha</span>
@@ -476,26 +537,40 @@
 
     <div class="s1-personas">
       <figure class="s1-persona">
-        <div class="s1-blob">
-          <img src="aarav.png" alt="Aarav" />
-        </div>
+        <div class="s1-blob"><img src="aarav.png" alt="Aarav" /></div>
         <figcaption class="s1-name">Aarav</figcaption>
       </figure>
       <figure class="s1-persona">
-        <div class="s1-blob">
-          <img src="sneha.png" alt="Sneha" />
-        </div>
+        <div class="s1-blob"><img src="sneha.png" alt="Sneha" /></div>
         <figcaption class="s1-name">Sneha</figcaption>
       </figure>
     </div>
   </section>
 
-  <!-- SLIDE 2 -->
+  <!-- SLIDE 2 — The insight -->
   <section class="slide s2 slide-dots">
     <header class="slide-header">
       <span class="slide-wordmark">kosha</span>
       <span class="slide-rule"></span>
-      <span class="slide-meta">getting the data</span>
+      <span class="slide-meta">the insight</span>
+    </header>
+
+    <div class="s2-quote-wrap">
+      <p class="s2-quote">
+        it's not expense tracking,<br>
+        it's <em>shared visibility</em><br>
+        with minimum effort.
+      </p>
+      <p class="s2-attr">this shapes every decision that follows</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 3 — Getting the data -->
+  <section class="slide s3 slide-dots">
+    <header class="slide-header">
+      <span class="slide-wordmark">kosha</span>
+      <span class="slide-rule"></span>
+      <span class="slide-meta">minimising effort — getting the data</span>
     </header>
     <h2 class="s2-headline">The data has to come<br>from somewhere.</h2>
     <p class="s2-subhead">Options I considered</p>
@@ -522,8 +597,66 @@
     <div class="s2-right" id="s2-right"></div>
   </section>
 
-  <!-- SLIDE 3 -->
-  <section class="slide s3 slide-dots">
+  <!-- SLIDE 4 — Minimising effort: adding manually -->
+  <section class="slide s4 slide-dots">
+    <header class="slide-header">
+      <span class="slide-wordmark">kosha</span>
+      <span class="slide-rule"></span>
+      <span class="slide-meta">minimising effort — adding manually</span>
+    </header>
+    <h2 class="sm-headline">For when the bank can't tell you.</h2>
+    <p class="sm-subhead">2 ideas I considered</p>
+
+    <div class="sm-cards">
+
+      <!-- Card 1: Bot -->
+      <div class="sm-card" id="smc1">
+        <div class="sm-chat-frame">
+          <p class="sm-chat-label">@koshabot</p>
+          <div class="sm-bubble-out">paid 450 at Big Bazaar</div>
+          <div class="sm-bubble-in">
+            <span class="sm-tick">✓</span>₹450 · Groceries
+            <div class="sm-bubble-ask">Mark as shared?</div>
+          </div>
+        </div>
+        <div>
+          <p class="sm-cname">WhatsApp / Telegram bot</p>
+          <p class="sm-cdesc">Forward a GPay screenshot — or just type it in words. ML parses merchant, amount, category. No form. No friction.</p>
+          <span class="sm-ctag ok">lowest friction</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Table -->
+      <div class="sm-card" id="smc2">
+        <div class="sm-grid-frame">
+          <div class="sm-grid-head">
+            <span>merchant</span><span>amount</span><span>shared</span>
+          </div>
+          <div class="sm-grid-row">
+            <span>Swiggy</span><span>₹420</span><span class="sm-check">✓</span>
+          </div>
+          <div class="sm-grid-row active">
+            <span>Big Bazaar</span><span>₹1,240</span><span class="sm-check">✓</span>
+          </div>
+          <div class="sm-grid-row">
+            <span>Uber</span><span>₹180</span><span class="sm-cursor">|</span>
+          </div>
+          <div class="sm-grid-row" style="opacity:.4">
+            <span>Netflix</span><span>₹649</span><span></span>
+          </div>
+        </div>
+        <div>
+          <p class="sm-cname">Quick-entry table</p>
+          <p class="sm-cdesc">Fast for power users — scan and tick in bulk. But it still demands intent. Reluctant trackers will bounce.</p>
+          <span class="sm-ctag">fast, but effortful</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SLIDE 5 — Brand decision -->
+  <section class="slide s5 slide-dots">
     <header class="slide-header">
       <span class="slide-wordmark">kosha</span>
       <span class="slide-rule"></span>
@@ -550,8 +683,8 @@
     <div class="s3-right" id="s3-right"></div>
   </section>
 
-  <!-- SLIDE 4 -->
-  <section class="slide s4">
+  <!-- SLIDE 6 — User journey -->
+  <section class="slide s6">
     <header class="slide-header">
       <span class="slide-wordmark">kosha</span>
       <span class="slide-rule"></span>
@@ -561,7 +694,6 @@
     <h2 class="s4-hl">The user journey.</h2>
     <p class="s4-sub">from sign-up to first shared expense</p>
 
-    <!-- Flow diagram -->
     <div class="s4-flow-area">
       <p class="s4-flow-lbl">the path</p>
       <div class="s4-row">
@@ -591,12 +723,10 @@
       </div>
     </div>
 
-    <!-- 3 Interaction patterns -->
     <div class="s4-pat">
       <p class="s4-pat-kicker">3 interaction patterns for adding shared transactions</p>
       <div class="s4-cards">
 
-        <!-- Pattern 1: One at a time -->
         <div class="s4-card" id="s4c1">
           <div class="s4-phone">
             <div class="s4-sc">
@@ -620,7 +750,6 @@
           </div>
         </div>
 
-        <!-- Pattern 2: Multi-select -->
         <div class="s4-card" id="s4c2">
           <div class="s4-phone">
             <div class="s4-sc">
@@ -638,7 +767,6 @@
           </div>
         </div>
 
-        <!-- Pattern 3: Swipe -->
         <div class="s4-card" id="s4c3">
           <div class="s4-phone">
             <div class="s4-sc">
@@ -661,16 +789,205 @@
     </div>
   </section>
 
-  <!-- SLIDE 5 -->
-  <section class="slide s5">
-    <div class="slide-inner">
-      <p class="eyebrow">05 / Close</p>
-      <h2>Thank You</h2>
-      <p>Dummy closing — what you'd do next with more time.</p>
+  <!-- SLIDE 7 (new) — What each person comes for -->
+  <section class="slide sgoals slide-dots">
+    <header class="slide-header">
+      <span class="slide-wordmark">kosha</span>
+      <span class="slide-rule"></span>
+      <span class="slide-meta">end goals</span>
+    </header>
+
+    <h2 class="sg-hl">What each person comes for.</h2>
+    <p class="sg-sub">Two people. Same product. Different first question.</p>
+
+    <div class="sg-mid">
+      <!-- Aarav column -->
+      <div class="sg-col sg-col-a" id="sgca">
+        <div class="sg-persona">
+          <div class="sg-photo"><img src="aarav.png" alt="Aarav" /></div>
+          <div>
+            <span class="sg-pname">Aarav</span>
+            <span class="sg-ptag">gut-check · 29</span>
+          </div>
+        </div>
+        <ul class="sg-goals">
+          <li class="sg-goal"><strong>Are we okay this month?</strong> — one status, not a spreadsheet</li>
+          <li class="sg-goal">How much do <strong>I owe</strong> her — or she owes me</li>
+          <li class="sg-goal">What did we spend <strong>together</strong> — the total</li>
+          <li class="sg-goal muted">Category breakdown — he trusts Sneha with this</li>
+        </ul>
+      </div>
+      <!-- Sneha column -->
+      <div class="sg-col sg-col-s" id="sgcs">
+        <div class="sg-persona">
+          <div class="sg-photo"><img src="sneha.png" alt="Sneha" /></div>
+          <div>
+            <span class="sg-pname">Sneha</span>
+            <span class="sg-ptag">planner · 31</span>
+          </div>
+        </div>
+        <ul class="sg-goals">
+          <li class="sg-goal"><strong>Where did the money go</strong> — by category</li>
+          <li class="sg-goal">Are we on track for <strong>the trip</strong> — goal progress</li>
+          <li class="sg-goal">Who spent what — <strong>her contribution vs his</strong></li>
+          <li class="sg-goal">The settlement number — what we owe each other</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Layout options — revealed on step 3 -->
+    <div class="sg-layouts" id="sg-layouts">
+      <p class="sg-lkick">3 layouts I considered for each view</p>
+      <div class="sg-lcards">
+        <!-- Option A: Dense dashboard -->
+        <div class="sg-lcard">
+          <div class="sg-wf">
+            <div class="sg-wf-b mid"></div>
+            <div class="sg-wf-2col">
+              <div class="sg-wf-b xs"></div><div class="sg-wf-b xs"></div>
+              <div class="sg-wf-b xs"></div><div class="sg-wf-b xs"></div>
+            </div>
+          </div>
+          <div class="sg-lv">✕ rejected</div>
+          <div class="sg-lname">Dense dashboard</div>
+          <div class="sg-ldesc">All metrics at once. Finance app default. Paralyzes reluctant trackers — too many places to look.</div>
+        </div>
+        <!-- Option B: Settlement-first (Aarav) -->
+        <div class="sg-lcard ok">
+          <div class="sg-wf">
+            <div class="sg-wf-b tc tall"></div>
+            <div class="sg-wf-b sm"></div>
+          </div>
+          <div class="sg-lv">✓ Aarav's home</div>
+          <div class="sg-lname">Settlement-first</div>
+          <div class="sg-ldesc">Hero = the number you owe or are owed. One glance, done. Drill down only if curious.</div>
+        </div>
+        <!-- Option C: Category-first (Sneha) -->
+        <div class="sg-lcard ok">
+          <div class="sg-wf">
+            <div class="sg-wf-b hl mid"></div>
+            <div class="sg-wf-b hl sm"></div>
+            <div class="sg-wf-b xs"></div>
+          </div>
+          <div class="sg-lv">✓ Sneha's home</div>
+          <div class="sg-lname">Category-first</div>
+          <div class="sg-ldesc">Spend bars at top. Goals progress below. Same data — different hierarchy. The planner's entry point.</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <div class="counter"><span id="cur">1</span> / <span id="total">5</span></div>
+  <!-- SLIDE 8 — Minimising effort: marking as shared (was slide 7) -->
+  <section class="slide s8">
+    <header class="slide-header">
+      <span class="slide-wordmark">kosha</span>
+      <span class="slide-rule"></span>
+      <span class="slide-meta">minimising effort — marking as shared</span>
+    </header>
+
+    <h2 class="s7-hl">Marking something shared<br>shouldn't feel like work.</h2>
+    <p class="s7-sub">3 approaches I designed for</p>
+
+    <div class="s7-pat">
+      <p class="s7-pat-kicker">patterns for zero-friction categorisation</p>
+      <div class="s7-cards">
+
+        <!-- Card 1: Cursor stays -->
+        <div class="s7-card" id="s7c1">
+          <div class="s7-phone">
+            <div class="s7-sc" style="padding:8px 6px 0">
+              <div class="s4-trow hi" style="border-bottom:1px solid rgba(248,243,228,0.06)">
+                <div class="s4-tdot"></div>
+                <div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div>
+              </div>
+              <div class="s4-btns">
+                <span class="s4-y">✓ yes</span>
+                <span class="s4-n">no →</span>
+              </div>
+              <div class="s4-trow" style="opacity:.28;border-bottom:1px solid rgba(248,243,228,0.06)"><div class="s4-tdot"></div><div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div></div>
+              <div class="s4-trow" style="opacity:.12;border-bottom:1px solid rgba(248,243,228,0.06)"><div class="s4-tdot"></div><div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div></div>
+              <div class="s4-trow" style="opacity:.06"><div class="s4-tdot"></div><div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div></div>
+            </div>
+          </div>
+          <div class="s7-ctxt">
+            <p class="s7-cname">Cursor stays</p>
+            <p class="s7-cdesc">Yes or No. Next transaction comes to you. No navigation. Works on desktop (keyboard) and mobile (swipe). The review is the app.</p>
+            <span class="s7-ctag">zero friction</span>
+          </div>
+        </div>
+
+        <!-- Card 2: ML categories -->
+        <div class="s7-card" id="s7c2">
+          <div class="s7-phone">
+            <div class="s7-cats">
+              <p class="s7-cat-hd">categories</p>
+              <div class="s7-cat-row">
+                <span class="s7-cat-nm">🏠 Rent</span>
+                <div class="s7-toggle on"></div>
+              </div>
+              <div class="s7-cat-row on">
+                <span class="s7-cat-nm">🛒 Groceries</span>
+                <div class="s7-toggle on"></div>
+              </div>
+              <div class="s7-cat-row">
+                <span class="s7-cat-nm">🚗 Transport</span>
+                <div class="s7-toggle"></div>
+              </div>
+              <div class="s7-cat-row" style="opacity:.5">
+                <span class="s7-cat-nm">🍜 Dining</span>
+                <div class="s7-toggle"></div>
+              </div>
+              <p class="s7-cat-note">3 new matches · review →</p>
+            </div>
+          </div>
+          <div class="s7-ctxt">
+            <p class="s7-cname">ML categories</p>
+            <p class="s7-cdesc">Mark "Groceries" as shared once. App learns from merchant history. Next time, it pre-marks — you just confirm on open.</p>
+            <span class="s7-ctag">gets smarter</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Screenshot match -->
+        <div class="s7-card" id="s7c3">
+          <div class="s7-phone">
+            <div class="s7-ss">
+              <p class="s7-ss-label">share into group</p>
+              <div class="s7-ss-img">🧾</div>
+              <div class="s7-ss-arrow">↓ matched</div>
+              <div class="s7-ss-match">
+                <div class="s7-ss-tick">✓ found</div>
+                <div class="s7-ss-name">Swiggy · ₹420<br>Dec 3 · shared</div>
+              </div>
+            </div>
+          </div>
+          <div class="s7-ctxt">
+            <p class="s7-cname">Screenshot match</p>
+            <p class="s7-cdesc">Share a GPay screenshot into the group. App matches it to the bank record — or creates a new entry if you're in manual mode.</p>
+            <span class="s7-ctag">feel-good magic</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 9 — Close -->
+  <section class="slide s9">
+    <div class="slide-inner">
+      <p class="eyebrow">09 / What's next</p>
+      <h2>If I had 3 more weeks.</h2>
+      <ul class="s8-list">
+        <li>Account Aggregator integration — real bank data, automatic sync, zero manual entry</li>
+        <li>The WhatsApp bot — forward a screenshot, done. MVP for reluctant trackers</li>
+        <li>Settlement engine — "you owe each other ₹340 this month. Settle?"</li>
+        <li>Recurring expense detection — pre-mark rent, Netflix, subscriptions</li>
+        <li>Aarav's view vs Sneha's view — one product, two modes of seeing it</li>
+      </ul>
+      <p class="s8-note">The proof of concept is live. The shortcuts are documented. The thinking is real.</p>
+    </div>
+  </section>
+
+  <div class="counter"><span id="cur">1</span> / <span id="total">8</span></div>
   <div class="controls">
     <button id="prev" aria-label="Previous">&larr;</button>
     <button id="next" aria-label="Next">&rarr;</button>
@@ -679,7 +996,7 @@
 </div>
 
 <script>
-  // ── Scale deck to viewport (never reflow, always 1280×720) ──
+  // ── Scale deck to viewport ──────────────────────────────
   const deck = document.getElementById('deck');
   function rescale() {
     const s = Math.min(window.innerWidth / 1280, window.innerHeight / 720) * 0.97;
@@ -688,101 +1005,37 @@
   window.addEventListener('resize', rescale);
   rescale();
 
-  // ── Navigation ──────────────────────────────────────────────
-  const slides = Array.from(document.querySelectorAll('.slide'));
-  const total  = slides.length;
+  // ── Navigation ──────────────────────────────────────────
+  const slides  = Array.from(document.querySelectorAll('.slide'));
+  const total   = slides.length;
   const prevBtn = document.getElementById('prev');
   const nextBtn = document.getElementById('next');
   const bar     = document.getElementById('bar');
   const curEl   = document.getElementById('cur');
   document.getElementById('total').textContent = total;
 
-  // ── Slide 2 sub-step logic ───────────────────────────────
-  const S2_MAX = 4;
-  let s2Step = 0;
+  // ── Substep state ───────────────────────────────────────
+  const S_DATA_MAX    = 4;  // slide index 2
+  const S_MANUAL_MAX  = 2;  // slide index 3
+  const S_BRAND_MAX   = 3;  // slide index 4
+  const S_JOURNEY_MAX = 3;  // slide index 5
+  const S_GOALS_MAX   = 3;  // slide index 6 (new)
+  const S_SHARED_MAX  = 3;  // slide index 7
 
-  // ── Slide 3 sub-step logic ───────────────────────────────
-  const S3_MAX = 3;
-  let s3Step = 0;
+  let sDataStep    = 0;
+  let sManualStep  = 0;
+  let sBrandStep   = 0;
+  let sJourneyStep = 0;
+  let sGoalsStep   = 0;
+  let sSharedStep  = 0;
 
-  // ── Slide 4 sub-step logic ──────────────────────────────
-  const S4_MAX = 3;
-  let s4Step = 0;
-
-  function renderS4(step) {
-    for (var n = 1; n <= 3; n++) {
-      document.getElementById('s4c' + n).classList.toggle('vis', n <= step);
-    }
-  }
-
-  const s3Options = [
-    { tag: 'option 1', name: 'Modern & data-first', verdict: false,
-      images:  ['brand-inspo/modern-1.jpg', 'brand-inspo/modern-0.webp'],
-      title:   'Too common.<br/> Disappears in the crowd.',
-      body:    'Every finance app looks like this. Heck, every app in the market currently looks like this, thanks to shadcn. <br/>It\'s clean but has no soul. ',
-      footnote: 'You gotta make them feel something. You gotta have a personality.' },
-    { tag: 'option 2', name: 'Neubrutalism', verdict: false,
-      images:  ['brand-inspo/neubrutalism-1.jpg', 'brand-inspo/neubrutalism-0'],
-      title:   'Great energy. Maybe not for this one.',
-      body:    'It looks great. Might even work for a specific audience. But the aesthetic is loud and energetic. Money is already stressful. For some this might amplify that anxiety, not ease it.',
-      footnote: 'The visual boldness works against the emotional goal. <br/> But it was a strong "maybe".' },
-    { tag: 'option 3', name: 'Nature-inspired', verdict: true,
-      images:  ['brand-inspo/nature-2.webp', 'brand-inspo/nature-1.jpg', 'brand-inspo/nature-0.webp'],
-      title:   'A breath of fresh air.',
-      body:    'Money is overwhelming as it is. A nature-inspired palette creates psychological distance from that stress. It says: you can handle this.',
-      footnote: 'Plus this is unexpected. Money apps have a certain vibe, this would stand out.' }
-  ];
-
-  function renderS3(step) {
-    var bullets = document.querySelectorAll('#s3-bullets .s3-bullet');
-    var rightEl = document.getElementById('s3-right');
-    var activeIdx = step < S3_MAX ? step : -1;
-
-    bullets.forEach(function(bullet, idx) {
-      var isActive   = idx === activeIdx;
-      var isRevealed = idx < step;
-      bullet.style.opacity = (!isActive && !isRevealed) ? '0.14' : '1';
-      bullet.classList.toggle('s3-active', isActive);
-      bullet.querySelector('.s3-verdict-icon').classList.toggle('show', isRevealed || step === S3_MAX);
-    });
-
-    rightEl.style.opacity = '0';
-    setTimeout(function() {
-      if (step === S3_MAX) {
-        rightEl.innerHTML =
-          '<p class="s3-pick-label">The brand guidelines</p>' +
-          '<div class="s3-palette">' +
-            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#2f5d4f"></div><span class="s3-swatch-label">forest</span></div>' +
-            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#f4ecd8;border:1px solid rgba(31,27,22,0.14)"></div><span class="s3-swatch-label">cream</span></div>' +
-            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#c96f4a"></div><span class="s3-swatch-label">terracotta</span></div>' +
-            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#1f1b16"></div><span class="s3-swatch-label">ink</span></div>' +
-            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#e8d9b8"></div><span class="s3-swatch-label">sand</span></div>' +
-          '</div>' +
-          '<div class="s3-type-row"><span class="s3-type-specimen">Lora</span><span class="s3-type-meta">display · headings · accent</span></div>' +
-          '<div class="s3-type-row" style="margin-bottom:22px"><span class="s3-type-specimen" style="font-family:\'Nunito\',sans-serif;font-weight:500;font-size:24px">Nunito</span><span class="s3-type-meta">body · labels · UI</span></div>' +
-          '<p class="s3-principle">Gentle. Calm. Clarity.</p>';
-      } else {
-        var src = s3Options[activeIdx];
-        var imgs = src.images.map(function(url) {
-          return '<img class="s3-moodboard-img" src="' + url + '" alt="" />';
-        }).join('');
-        rightEl.innerHTML =
-          '<div class="s3-moodboard">' + imgs + '</div>' +
-          '<p class="s3-source-kicker">' + src.tag + ' — ' + src.name + '</p>' +
-          '<h3 class="s3-right-title">' + src.title + '</h3>' +
-          '<p class="s3-right-body">' + src.body + '</p>' +
-          '<p class="s3-right-footnote">' + src.footnote + '</p>';
-      }
-      rightEl.style.opacity = '1';
-    }, 220);
-  }
-
+  // ── Data slide (slide 3, index 2) ──────────────────────
   const s2Sources = [
     { abbr: 'AA',  name: 'Account Aggregator', verdict: true,
       what:    'Banks share your transaction data directly with apps via a regulated consent framework.',
       title:   'Absolute best.',
       body:    'Real-time data, automatic sync, single consent flow across all linked banks. But a lot of licensing required.',
-      footnote: "A lot of banks, like SBI, are still catching up. We’d be missing a big chunk of users because of this." },
+      footnote: "A lot of banks, like SBI, are still catching up. We'd be missing a big chunk of users because of this." },
     { abbr: 'SMS', name: 'SMS parsing', verdict: false,
       what:    'The app reads your bank SMS alerts and extracts transaction amounts and merchants.',
       title:   'Too many problems.',
@@ -800,22 +1053,22 @@
       footnote: 'We miss direct card payments, app fatigue, and edge cases.' }
   ];
 
-  function renderS2(step) {
-    const bullets = document.querySelectorAll('#s2-bullets .s2-bullet');
-    const rightEl = document.getElementById('s2-right');
-    const activeIdx = step < S2_MAX ? step : -1;
+  function renderData(step) {
+    const bullets  = document.querySelectorAll('#s2-bullets .s2-bullet');
+    const rightEl  = document.getElementById('s2-right');
+    const activeIdx = step < S_DATA_MAX ? step : -1;
 
     bullets.forEach(function(bullet, idx) {
       const isActive   = idx === activeIdx;
       const isRevealed = idx < step;
       bullet.style.opacity = (!isActive && !isRevealed) ? '0.14' : '1';
       bullet.classList.toggle('s2-active', isActive);
-      bullet.querySelector('.s2-verdict-icon').classList.toggle('show', isRevealed || step === S2_MAX);
+      bullet.querySelector('.s2-verdict-icon').classList.toggle('show', isRevealed || step === S_DATA_MAX);
     });
 
     rightEl.style.opacity = '0';
     setTimeout(function() {
-      if (step === S2_MAX) {
+      if (step === S_DATA_MAX) {
         rightEl.innerHTML =
           '<p class="s2-pick-label">I would pick</p>' +
           '<div class="s2-picks">' +
@@ -823,8 +1076,8 @@
             '<div class="s2-pick-row"><span class="s2-pick-name">Bank statement</span><span class="s2-pick-role">monthly backup</span></div>' +
             '<div class="s2-pick-row"><span class="s2-pick-name">Manual entry</span><span class="s2-pick-role">always available</span></div>' +
           '</div>' +
-          '<p class="s2-pick-note">Obviously this is dependent on the company\'s direction and whether going through that licensing for AA is worth the effort. </p>';
-      } else {
+          '<p class="s2-pick-note">Obviously this is dependent on the company\'s direction and whether going through that licensing for AA is worth the effort.</p>';
+      } else if (activeIdx >= 0) {
         var src = s2Sources[activeIdx];
         rightEl.innerHTML =
           '<p class="s2-source-kicker">' + src.abbr + ' — ' + src.name + '</p>' +
@@ -832,64 +1085,166 @@
           '<h3 class="s2-right-title">' + src.title + '</h3>' +
           '<p class="s2-right-body">' + src.body + '</p>' +
           '<p class="s2-right-footnote">' + src.footnote + '</p>';
+      } else {
+        rightEl.innerHTML = '';
       }
       rightEl.style.opacity = '1';
     }, 220);
   }
 
+  // ── Manual entry slide (slide 4, index 3) ──────────────
+  function renderManual(step) {
+    for (var n = 1; n <= 2; n++) {
+      document.getElementById('smc' + n).classList.toggle('vis', n <= step);
+    }
+  }
+
+  // ── Goals slide (slide 7 new, index 6) ─────────────────
+  function renderGoals(step) {
+    document.getElementById('sgca').classList.toggle('vis', step >= 1);
+    document.getElementById('sgcs').classList.toggle('vis', step >= 2);
+    document.getElementById('sg-layouts').classList.toggle('vis', step >= 3);
+  }
+
+  // ── Brand slide (slide 5, index 4) ─────────────────────
+  const s3Options = [
+    { tag: 'option 1', name: 'Modern & data-first', verdict: false,
+      images:  ['brand-inspo/modern-1.jpg', 'brand-inspo/modern-0.webp'],
+      title:   'Too common.<br/> Disappears in the crowd.',
+      body:    'Every finance app looks like this. Heck, every app in the market currently looks like this, thanks to shadcn. <br/>It\'s clean but has no soul.',
+      footnote: 'You gotta make them feel something. You gotta have a personality.' },
+    { tag: 'option 2', name: 'Neubrutalism', verdict: false,
+      images:  ['brand-inspo/neubrutalism-1.jpg', 'brand-inspo/neubrutalism-0'],
+      title:   'Great energy. Maybe not for this one.',
+      body:    'It looks great. Might even work for a specific audience. But the aesthetic is loud and energetic. Money is already stressful. For some this might amplify that anxiety, not ease it.',
+      footnote: 'The visual boldness works against the emotional goal. <br/> But it was a strong "maybe".' },
+    { tag: 'option 3', name: 'Nature-inspired', verdict: true,
+      images:  ['brand-inspo/nature-2.webp', 'brand-inspo/nature-1.jpg', 'brand-inspo/nature-0.webp'],
+      title:   'A breath of fresh air.',
+      body:    'Money is overwhelming as it is. A nature-inspired palette creates psychological distance from that stress. It says: you can handle this.',
+      footnote: 'Plus this is unexpected. Money apps have a certain vibe, this would stand out.' }
+  ];
+
+  function renderBrand(step) {
+    var bullets  = document.querySelectorAll('#s3-bullets .s3-bullet');
+    var rightEl  = document.getElementById('s3-right');
+    var activeIdx = step < S_BRAND_MAX ? step : -1;
+
+    bullets.forEach(function(bullet, idx) {
+      var isActive   = idx === activeIdx;
+      var isRevealed = idx < step;
+      bullet.style.opacity = (!isActive && !isRevealed) ? '0.14' : '1';
+      bullet.classList.toggle('s3-active', isActive);
+      bullet.querySelector('.s3-verdict-icon').classList.toggle('show', isRevealed || step === S_BRAND_MAX);
+    });
+
+    rightEl.style.opacity = '0';
+    setTimeout(function() {
+      if (step === S_BRAND_MAX) {
+        rightEl.innerHTML =
+          '<p class="s3-pick-label">The brand guidelines</p>' +
+          '<div class="s3-palette">' +
+            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#2f5d4f"></div><span class="s3-swatch-label">forest</span></div>' +
+            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#f4ecd8;border:1px solid rgba(31,27,22,0.14)"></div><span class="s3-swatch-label">cream</span></div>' +
+            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#c96f4a"></div><span class="s3-swatch-label">terracotta</span></div>' +
+            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#1f1b16"></div><span class="s3-swatch-label">ink</span></div>' +
+            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#e8d9b8"></div><span class="s3-swatch-label">sand</span></div>' +
+          '</div>' +
+          '<div class="s3-type-row"><span class="s3-type-specimen">Lora</span><span class="s3-type-meta">display · headings · accent</span></div>' +
+          '<div class="s3-type-row" style="margin-bottom:22px"><span class="s3-type-specimen" style="font-family:\'Nunito\',sans-serif;font-weight:500;font-size:24px">Nunito</span><span class="s3-type-meta">body · labels · UI</span></div>' +
+          '<p class="s3-principle">Gentle. Calm. Clarity.</p>';
+      } else if (activeIdx >= 0) {
+        var src  = s3Options[activeIdx];
+        var imgs = src.images.map(function(url) {
+          return '<img class="s3-moodboard-img" src="' + url + '" alt="" />';
+        }).join('');
+        rightEl.innerHTML =
+          '<div class="s3-moodboard">' + imgs + '</div>' +
+          '<p class="s3-source-kicker">' + src.tag + ' — ' + src.name + '</p>' +
+          '<h3 class="s3-right-title">' + src.title + '</h3>' +
+          '<p class="s3-right-body">' + src.body + '</p>' +
+          '<p class="s3-right-footnote">' + src.footnote + '</p>';
+      } else {
+        rightEl.innerHTML = '';
+      }
+      rightEl.style.opacity = '1';
+    }, 220);
+  }
+
+  // ── Journey slide (slide 6, index 5) ───────────────────
+  function renderJourney(step) {
+    for (var n = 1; n <= 3; n++) {
+      document.getElementById('s4c' + n).classList.toggle('vis', n <= step);
+    }
+  }
+
+  // ── Shared slide (slide 7, index 6) ────────────────────
+  function renderShared(step) {
+    for (var n = 1; n <= 3; n++) {
+      document.getElementById('s7c' + n).classList.toggle('vis', n <= step);
+    }
+  }
+
+  // ── Core nav ────────────────────────────────────────────
   let i = 0;
 
   function updateControls() {
     bar.style.width = ((i + 1) / total * 100) + '%';
     curEl.textContent = i + 1;
-    prevBtn.disabled = (i === 0 && s2Step === 0 && s3Step === 0 && s4Step === 0);
+    prevBtn.disabled = (i === 0);
     nextBtn.disabled = (i === total - 1);
   }
 
   function go(n) {
     var prev = i;
     i = Math.max(0, Math.min(total - 1, n));
-    if (i === 1 && prev !== 1) {
-      s2Step = (n > prev) ? 0 : S2_MAX;
-      renderS2(s2Step);
-    }
-    if (i === 2 && prev !== 2) {
-      s3Step = (n > prev) ? 0 : S3_MAX;
-      renderS3(s3Step);
-    }
-    if (i === 3 && prev !== 3) {
-      s4Step = (n > prev) ? 0 : S4_MAX;
-      renderS4(s4Step);
-    }
-    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    var fwd = n > prev;
+    if (i === 2 && prev !== 2) { sDataStep    = fwd ? 0 : S_DATA_MAX;    renderData(sDataStep); }
+    if (i === 3 && prev !== 3) { sManualStep  = fwd ? 0 : S_MANUAL_MAX;  renderManual(sManualStep); }
+    if (i === 4 && prev !== 4) { sBrandStep   = fwd ? 0 : S_BRAND_MAX;   renderBrand(sBrandStep); }
+    if (i === 5 && prev !== 5) { sJourneyStep = fwd ? 0 : S_JOURNEY_MAX; renderJourney(sJourneyStep); }
+    if (i === 6 && prev !== 6) { sGoalsStep   = fwd ? 0 : S_GOALS_MAX;   renderGoals(sGoalsStep); }
+    if (i === 7 && prev !== 7) { sSharedStep  = fwd ? 0 : S_SHARED_MAX;  renderShared(sSharedStep); }
+    slides.forEach(function(s, idx) { s.classList.toggle('active', idx === i); });
     updateControls();
   }
 
   function handleNext() {
-    if (i === 1 && s2Step < S2_MAX) { s2Step++; renderS2(s2Step); updateControls(); }
-    else if (i === 2 && s3Step < S3_MAX) { s3Step++; renderS3(s3Step); updateControls(); }
-    else if (i === 3 && s4Step < S4_MAX) { s4Step++; renderS4(s4Step); updateControls(); }
+    if      (i === 2 && sDataStep    < S_DATA_MAX)    { sDataStep++;    renderData(sDataStep);       updateControls(); }
+    else if (i === 3 && sManualStep  < S_MANUAL_MAX)  { sManualStep++;  renderManual(sManualStep);   updateControls(); }
+    else if (i === 4 && sBrandStep   < S_BRAND_MAX)   { sBrandStep++;   renderBrand(sBrandStep);     updateControls(); }
+    else if (i === 5 && sJourneyStep < S_JOURNEY_MAX) { sJourneyStep++; renderJourney(sJourneyStep); updateControls(); }
+    else if (i === 6 && sGoalsStep   < S_GOALS_MAX)   { sGoalsStep++;   renderGoals(sGoalsStep);     updateControls(); }
+    else if (i === 7 && sSharedStep  < S_SHARED_MAX)  { sSharedStep++;  renderShared(sSharedStep);   updateControls(); }
     else go(i + 1);
   }
+
   function handlePrev() {
-    if (i === 3 && s4Step > 0) { s4Step--; renderS4(s4Step); updateControls(); }
-    else if (i === 2 && s3Step > 0) { s3Step--; renderS3(s3Step); updateControls(); }
-    else if (i === 1 && s2Step > 0) { s2Step--; renderS2(s2Step); updateControls(); }
+    if      (i === 7 && sSharedStep  > 0) { sSharedStep--;  renderShared(sSharedStep);   updateControls(); }
+    else if (i === 6 && sGoalsStep   > 0) { sGoalsStep--;   renderGoals(sGoalsStep);     updateControls(); }
+    else if (i === 5 && sJourneyStep > 0) { sJourneyStep--; renderJourney(sJourneyStep); updateControls(); }
+    else if (i === 4 && sBrandStep   > 0) { sBrandStep--;   renderBrand(sBrandStep);     updateControls(); }
+    else if (i === 3 && sManualStep  > 0) { sManualStep--;  renderManual(sManualStep);   updateControls(); }
+    else if (i === 2 && sDataStep    > 0) { sDataStep--;    renderData(sDataStep);       updateControls(); }
     else go(i - 1);
   }
 
   prevBtn.addEventListener('click', handlePrev);
   nextBtn.addEventListener('click', handleNext);
-  document.addEventListener('keydown', e => {
-    if      (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                     handlePrev();
+  document.addEventListener('keydown', function(e) {
+    if      (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                    handlePrev();
     else if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') handleNext();
-    else if (e.key === 'Home')                         go(0);
-    else if (e.key === 'End')                          go(total - 1);
+    else if (e.key === 'Home') go(0);
+    else if (e.key === 'End')  go(total - 1);
   });
+
   go(0);
-  renderS2(0);
-  renderS3(0);
-  renderS4(0);
+  renderData(0);
+  renderManual(0);
+  renderBrand(0);
+  renderJourney(0);
+  renderGoals(0);
+  renderShared(0);
 </script>
 </body>
 </html>
