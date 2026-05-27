@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>kosha — presentation</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest:     #2f5d4f;
+    --cream:      #f8f3e4;
+    --terracotta: #c96f4a;
+    --ink:        #1f1b16;
+    --sand:       #e8d9b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%; width: 100%;
+    background: #1a1411;
+    overflow: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: "Nunito", sans-serif;
+  }
+
+  /* ── Fixed-size deck, scaled by JS ────────────────────── */
+  .deck {
+    width: 1280px;
+    height: 720px;
+    position: absolute;
+    top: 50%; left: 50%;
+    /* JS sets scale; translate(-50%,-50%) keeps it centered regardless of scale */
+    transform: translate(-50%, -50%);
+    transform-origin: center center;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    background: var(--cream);
+  }
+
+  /* ── Slides ────────────────────────────────────────────── */
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms ease;
+  }
+  .slide.active { opacity: 1; pointer-events: auto; }
+
+  /* ── Progress + Controls ───────────────────────────────── */
+  .progress {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 4px; background: rgba(0,0,0,0.12); z-index: 10;
+  }
+  .progress span {
+    display: block; height: 100%; width: 0;
+    background: var(--terracotta);
+    transition: width 300ms ease;
+  }
+  .controls {
+    position: absolute; right: 20px; bottom: 20px;
+    display: flex; gap: 8px; z-index: 10;
+  }
+  .controls button {
+    width: 40px; height: 40px; border-radius: 50%; border: none;
+    background: rgba(31,27,22,0.28); color: #fff;
+    font-size: 17px; cursor: pointer;
+    display: grid; place-items: center;
+    backdrop-filter: blur(8px);
+    transition: background 150ms;
+  }
+  .controls button:hover  { background: rgba(31,27,22,0.5); }
+  .controls button:disabled { opacity: 0.3; cursor: default; }
+  .counter {
+    position: absolute; left: 20px; bottom: 16px;
+    font-size: 13px; letter-spacing: 0.12em; opacity: 0.5; z-index: 10;
+    color: var(--ink);
+  }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE 1
+  ══════════════════════════════════════════════════════ */
+  .slide.s1 {
+    background: var(--cream);
+    color: var(--forest);
+  }
+  /* shared dot-grid background — used on cream slides */
+  .slide-dots::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(31,27,22,0.02) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+
+  /* top header strip */
+  .s1-header {
+    position: absolute; top: 48px; left: 72px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .s1-wordmark {
+    font-family: "Lora", serif;
+    font-style: italic; font-weight: 500;
+    font-size: 22px; letter-spacing: -0.01em;
+    color: var(--forest);
+  }
+  .s1-rule {
+    width: 64px; height: 1px;
+    background: var(--terracotta); opacity: 0.6;
+  }
+  .s1-meta {
+    font-size: 12px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--terracotta);
+    font-weight: 600; opacity: 0.85;
+  }
+
+  /* main copy — left half */
+  .s1-body {
+    position: absolute;
+    top: 50%; left: 72px;
+    transform: translateY(-50%);
+    max-width: 580px;
+  }
+  .s1-kicker {
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .s1-kicker .amp {
+    font-family: "Lora", serif; font-style: italic;
+    font-weight: 400; font-size: 20px;
+    letter-spacing: 0; color: var(--forest);
+  }
+  .s1-h1 {
+    font-family: "Lora", serif;
+    font-weight: 500; font-size: 54px;
+    line-height: 1.14; letter-spacing: -0.015em;
+    color: var(--forest);
+  }
+  .s1-h1 em {
+    font-style: italic; color: var(--terracotta);
+  }
+  .s1-accent {
+    background-image: linear-gradient(transparent 60%, rgba(201,111,74,0.28) 10%);
+    background-size: 100% 100%; padding: 0 2px;
+  }
+
+  /* personas — absolute bottom-right */
+  .s1-personas {
+    position: absolute;
+    right: 64px; bottom: 56px;
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+  }
+  .s1-persona {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 12px;
+  }
+  .s1-persona + .s1-persona { margin-left: -20px; }
+
+  /* Aarav — lean left, lower */
+  .s1-persona:nth-child(1) {
+    z-index: 1;
+    transform: rotate(-7deg) translateY(20px);
+    transform-origin: bottom center;
+  }
+  /* Sneha — lean right, higher */
+  .s1-persona:nth-child(2) {
+    z-index: 2;
+    transform: rotate(6deg) translateY(-28px);
+    transform-origin: bottom center;
+  }
+
+  .s1-blob {
+    width: 250px; height: 250;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 5px solid var(--cream);
+    box-shadow: 0 12px 36px rgba(31,27,22,0.18);
+    background: var(--sand);
+    isolation: isolate;
+  }
+  .s1-persona:nth-child(1) .s1-blob {
+    width: 200px; height: 200px;
+    align-self: flex-end;
+    background: var(--sand);
+  }
+  .s1-blob img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .s1-name {
+    font-family: "Lora", serif; font-style: italic;
+    font-size: 17px; letter-spacing: 0.01em;
+  }
+  .s1-persona:nth-child(1) .s1-name { color: var(--terracotta); }
+  .s1-persona:nth-child(2) .s1-name { color: var(--forest); }
+
+  /* ══════════════════════════════════════════════════════
+     SHARED SLIDE HEADER
+  ══════════════════════════════════════════════════════ */
+  .slide-header { position: absolute; top: 48px; left: 72px; display: flex; align-items: center; gap: 16px; z-index: 1; }
+  .slide-wordmark { font-family: "Lora", serif; font-style: italic; font-weight: 500; font-size: 22px; letter-spacing: -0.01em; color: var(--forest); }
+  .slide-rule { width: 64px; height: 1px; background: var(--terracotta); opacity: 0.6; }
+  .slide-meta { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terracotta); font-weight: 600; opacity: 0.85; }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE 2 — Getting the data
+  ══════════════════════════════════════════════════════ */
+  .slide.s2 { background: var(--cream); color: var(--ink); }
+
+  .s2-headline { position: absolute; top: 122px; left: 72px; width: 510px; font-family: "Lora", serif; font-weight: 500; font-size: 38px; line-height: 1.2; letter-spacing: -0.015em; color: var(--forest); }
+
+  .s2-subhead { position: absolute; top: 242px; left: 72px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.35; }
+  .s2-bullets { position: absolute; top: 278px; left: 92px; list-style: none; }
+
+  .s2-bullet { position: relative; display: flex; align-items: center; gap: 14px; height: 76px; transition: opacity 360ms ease; }
+  .s2-bullet::before { content: ""; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); width: 3px; height: 0; background: var(--terracotta); border-radius: 2px; transition: height 280ms ease, opacity 280ms ease; opacity: 0; }
+  .s2-bullet.s2-active::before { height: 28px; opacity: 1; }
+
+  .s2-verdict-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; opacity: 0; transition: opacity 300ms ease; }
+  .s2-verdict-icon.show { opacity: 1; }
+  .s2-verdict-icon.pass { background: var(--forest); color: var(--cream); }
+  .s2-verdict-icon.fail { background: var(--terracotta); color: var(--cream); }
+
+  .s2-bullet-name { font-family: "Lora", serif; font-size: 23px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); }
+  .s2-bullet-abbr { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); padding: 3px 7px; border-radius: 3px; background: rgba(201,111,74,0.1); }
+
+  .s2-divider { position: absolute; left: 636px; top: 80px; bottom: 80px; width: 1px; background: var(--ink); opacity: 0.08; }
+
+  .s2-right { position: absolute; left: 672px; top: 50%; transform: translateY(-50%); width: 496px; transition: opacity 220ms ease; }
+  .s2-source-kicker { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); margin-bottom: 22px; display: flex; align-items: center; gap: 12px; }
+  .s2-source-kicker::after { content: ""; flex: 1; height: 1px; background: var(--terracotta); opacity: 0.28; }
+  .s2-right-what { font-size: 15px; line-height: 1.6; color: var(--ink); opacity: 0.55; margin-bottom: 20px; }
+  .s2-right-title { font-family: "Lora", serif; font-size: 32px; font-weight: 500; line-height: 1.18; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 18px; }
+  .s2-right-body { font-size: 17px; line-height: 1.72; color: var(--ink); opacity: 0.7; margin-bottom: 26px; }
+  .s2-right-footnote { font-size: 15px; line-height: 1.6; color: var(--ink); opacity: 0.7; border-left: 2px solid rgba(201,111,74,0.45); padding-left: 16px; font-style: italic; }
+
+  .s2-pick-label { font-family: "Lora", serif; font-style: italic; font-size: 15px; color: var(--terracotta); margin-bottom: 28px; }
+  .s2-picks { display: flex; flex-direction: column; }
+  .s2-pick-row { display: flex; align-items: baseline; padding: 15px 0; border-bottom: 1px solid rgba(31,27,22,0.09); }
+  .s2-pick-row:last-child { border-bottom: none; }
+  .s2-pick-name { font-family: "Lora", serif; font-size: 21px; font-weight: 500; color: var(--ink); flex: 1; }
+  .s2-pick-role { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--forest); opacity: 0.65; }
+  .s2-pick-note { font-size: 14px; color: var(--ink); opacity: 0.42; margin-top: 24px; line-height: 1.65; font-style: italic; }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE 3 — Brand decision
+  ══════════════════════════════════════════════════════ */
+  .slide.s3 { background: var(--cream); color: var(--ink); }
+
+  .s3-headline { position: absolute; top: 122px; left: 72px; width: 510px; font-family: "Lora", serif; font-weight: 500; font-size: 38px; line-height: 1.2; letter-spacing: -0.015em; color: var(--forest); }
+
+  .s3-subhead { position: absolute; top: 242px; left: 72px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.35; }
+  .s3-bullets { position: absolute; top: 278px; left: 92px; list-style: none; }
+
+  .s3-bullet { position: relative; display: flex; align-items: center; gap: 14px; height: 76px; transition: opacity 360ms ease; }
+  .s3-bullet::before { content: ""; position: absolute; left: -20px; top: 50%; transform: translateY(-50%); width: 3px; height: 0; background: var(--terracotta); border-radius: 2px; transition: height 280ms ease, opacity 280ms ease; opacity: 0; }
+  .s3-bullet.s3-active::before { height: 28px; opacity: 1; }
+
+  .s3-verdict-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; opacity: 0; transition: opacity 300ms ease; }
+  .s3-verdict-icon.show { opacity: 1; }
+  .s3-verdict-icon.pass { background: var(--forest); color: var(--cream); }
+  .s3-verdict-icon.fail { background: var(--terracotta); color: var(--cream); }
+  .s3-verdict-icon.maybe { background: var(--terracotta); color: var(--cream); font-size: 16px; }
+
+  .s3-bullet-name { font-family: "Lora", serif; font-size: 23px; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); }
+  .s3-bullet-tag { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); padding: 3px 7px; border-radius: 3px; background: rgba(201,111,74,0.1); }
+
+  .s3-divider { position: absolute; left: 636px; top: 80px; bottom: 80px; width: 1px; background: var(--ink); opacity: 0.08; }
+
+  .s3-right { position: absolute; left: 672px; top: 50%; transform: translateY(-50%); width: 496px; transition: opacity 220ms ease; }
+  .s3-source-kicker { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); margin-bottom: 22px; display: flex; align-items: center; gap: 12px; }
+  .s3-source-kicker::after { content: ""; flex: 1; height: 1px; background: var(--terracotta); opacity: 0.28; }
+  .s3-right-what { font-size: 15px; line-height: 1.6; color: var(--ink); opacity: 0.55; margin-bottom: 20px; }
+  .s3-right-title { font-family: "Lora", serif; font-size: 32px; font-weight: 500; line-height: 1.18; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 18px; }
+  .s3-right-body { font-size: 17px; line-height: 1.72; color: var(--ink); opacity: 0.7; margin-bottom: 26px; }
+  .s3-right-footnote { font-size: 15px; line-height: 1.6; color: var(--ink); opacity: 0.7; border-left: 2px solid rgba(201,111,74,0.45); padding-left: 16px; font-style: italic; }
+
+  .s3-pick-label { font-family: "Lora", serif; font-style: italic; font-size: 15px; color: var(--terracotta); margin-bottom: 22px; }
+  .s3-palette { display: flex; gap: 14px; margin-bottom: 26px; }
+  .s3-swatch { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .s3-swatch-block { width: 60px; height: 60px; border-radius: 10px; box-shadow: 0 4px 14px rgba(31,27,22,0.13); }
+  .s3-swatch-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.4; }
+  .s3-type-row { display: flex; align-items: baseline; gap: 16px; border-bottom: 1px solid rgba(31,27,22,0.08); margin-top: 18px; padding-bottom: 20px; }
+  .s3-type-specimen { font-family: "Lora", serif; font-size: 26px; font-weight: 500; color: var(--forest); }
+  .s3-type-meta { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--ink); opacity: 0.35; }
+  .s3-principle { font-family: "Lora", serif; font-style: italic; font-size: 22px; font-weight: 500; color: var(--forest); line-height: 1.4; margin-top: 12px; margin-bottom: 28px; }
+
+  /* moodboard pile */
+  .s3-moodboard { position: relative; height: 300px; margin-bottom: 24px; }
+  .s3-moodboard-img {
+    position: absolute; top: 0; left: 0;
+    width: 300px; height: 240px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 3px solid var(--cream);
+    box-shadow: 0 8px 24px rgba(31,27,22,0.3);
+    transition: transform 420ms cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 300ms ease;
+    cursor: default;
+  }
+  /* thrown pile — each slightly offset and rotated */
+  .s3-moodboard-img:nth-child(1) { transform: rotate(-9deg) translate(6px, 16px); z-index: 1; }
+  .s3-moodboard-img:nth-child(2) { transform: rotate(6deg)  translate(20px, 6px); z-index: 2; }
+  .s3-moodboard-img:nth-child(3) { transform: rotate(-3deg) translate(12px, 0px); z-index: 3; }
+  /* hover — fan out left to right */
+  .s3-moodboard:hover .s3-moodboard-img { box-shadow: 0 14px 36px rgba(31,27,22,0.22); }
+  .s3-moodboard:hover .s3-moodboard-img:nth-child(1) { transform: rotate(-5deg) translate(-250px, 14px); }
+  .s3-moodboard:hover .s3-moodboard-img:nth-child(2) { transform: rotate(3deg)  translate(80px, 2px); }
+  .s3-moodboard:hover .s3-moodboard-img:nth-child(3) { transform: rotate(2deg) translate(-10px, 250px); }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE 4 — User Journey
+  ══════════════════════════════════════════════════════ */
+  .slide.s4 { background: #243c33; color: var(--cream); }
+
+  /* header on dark bg */
+  .s4 .slide-wordmark { color: var(--cream); }
+  .s4 .slide-rule     { background: rgba(248,243,228,0.35); }
+  .s4 .slide-meta     { color: rgba(232,217,184,0.75); }
+
+  .s4-hl {
+    position: absolute; top: 108px; left: 72px;
+    font-family: "Lora", serif; font-style: italic; font-weight: 500;
+    font-size: 44px; line-height: 1; letter-spacing: -0.02em; color: var(--cream);
+  }
+  .s4-sub {
+    position: absolute; top: 163px; left: 72px;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream); opacity: 0.28; font-weight: 600;
+  }
+
+  /* flow area */
+  .s4-flow-area { position: absolute; top: 208px; left: 72px; }
+  .s4-flow-lbl  { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terracotta); font-weight: 700; opacity: 0.9; margin-bottom: 14px; }
+  .s4-row       { display: flex; align-items: center; }
+
+  .s4-nd {
+    padding: 8px 16px; border-radius: 20px;
+    border: 1.5px solid rgba(248,243,228,0.2);
+    background: rgba(248,243,228,0.06);
+    font-size: 13px; font-weight: 600; color: rgba(248,243,228,0.72); white-space: nowrap;
+  }
+  .s4-nd-hl { background: rgba(248,243,228,0.14); border-color: rgba(248,243,228,0.38); color: var(--cream); }
+
+  .s4-arr { width: 28px; text-align: center; color: var(--terracotta); font-size: 13px; opacity: 0.55; flex-shrink: 0; }
+
+  /* bank fork */
+  .s4-bankwrap { position: relative; }
+  .s4-bankwrap::after {
+    content: ""; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 8px; background: rgba(248,243,228,0.18);
+  }
+  .s4-bankfork {
+    position: absolute; top: calc(100% + 16px); left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 5px; pointer-events: none;
+  }
+  .s4-fork-lbl { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream); opacity: 0.25; white-space: nowrap; font-weight: 600; }
+  .s4-fork-row { display: flex; gap: 6px; align-items: center; }
+  .s4-nd-alt   { padding: 5px 11px; border-radius: 14px; border: 1.5px dashed rgba(248,243,228,0.18); font-size: 11px; font-weight: 600; color: rgba(248,243,228,0.38); white-space: nowrap; }
+  .s4-fork-sep { font-size: 9px; color: rgba(248,243,228,0.2); font-style: italic; }
+
+  /* patterns section */
+  .s4-pat { position: absolute; top: 422px; left: 72px; right: 64px; }
+  .s4-pat-kicker {
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--terracotta); font-weight: 700; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .s4-pat-kicker::after { content: ""; flex: 1; height: 1px; background: var(--terracotta); opacity: 0.2; }
+  .s4-cards { display: flex; gap: 16px; }
+
+  .s4-card {
+    flex: 1; border-radius: 12px;
+    border: 1px solid rgba(248,243,228,0.08);
+    background: rgba(248,243,228,0.04);
+    padding: 16px; display: flex; gap: 16px; align-items: center;
+    opacity: 0; transform: translateY(8px);
+    transition: opacity 300ms ease, transform 300ms ease;
+  }
+  .s4-card.vis { opacity: 1; transform: translateY(0); }
+
+  /* phone frame */
+  .s4-phone {
+    width: 88px; height: 148px; border-radius: 12px;
+    border: 2px solid rgba(248,243,228,0.24);
+    background: rgba(0,0,0,0.32); flex-shrink: 0;
+    position: relative; overflow: hidden;
+  }
+  .s4-phone::before {
+    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 22px; height: 3px; background: rgba(248,243,228,0.18); border-radius: 0 0 3px 3px; z-index: 1;
+  }
+  .s4-sc   { padding: 8px 6px 0; }
+  .s4-trow { display: flex; align-items: center; gap: 5px; padding: 4px 2px; border-bottom: 1px solid rgba(248,243,228,0.06); }
+  .s4-trow.hi { background: rgba(248,243,228,0.09); border-radius: 3px; }
+  .s4-tdot { width: 14px; height: 14px; border-radius: 50%; background: rgba(248,243,228,0.14); flex-shrink: 0; }
+  .s4-tinfo { flex: 1; }
+  .s4-tln  { height: 3px; border-radius: 2px; background: rgba(248,243,228,0.2); margin-bottom: 3px; }
+  .s4-tln:last-child { width: 55%; opacity: 0.55; margin-bottom: 0; }
+
+  /* p1 buttons */
+  .s4-btns { display: flex; justify-content: space-between; padding: 4px 2px 0; }
+  .s4-y    { padding: 2px 7px; border-radius: 3px; background: rgba(47,93,79,0.9); border: 1px solid rgba(248,243,228,0.3); color: var(--cream); font-size: 8px; font-weight: 700; }
+  .s4-n    { padding: 2px 7px; border-radius: 3px; border: 1px solid rgba(248,243,228,0.18); color: rgba(248,243,228,0.42); font-size: 8px; }
+
+  /* p2 checkboxes */
+  .s4-cb   { width: 10px; height: 10px; border-radius: 2px; border: 1.5px solid rgba(248,243,228,0.28); flex-shrink: 0; }
+  .s4-cb.on { background: var(--terracotta); border-color: var(--terracotta); }
+  .s4-cfirm { margin: 5px 3px 0; padding: 4px 0; border-radius: 4px; background: rgba(248,243,228,0.1); text-align: center; font-size: 7px; font-weight: 700; color: rgba(248,243,228,0.8); }
+
+  /* p3 swipe */
+  .s4-swlbls { display: flex; justify-content: space-between; padding: 5px 3px 3px; font-size: 8px; color: rgba(248,243,228,0.3); }
+  .s4-swcard { margin: 0 4px; padding: 9px 7px 8px; border-radius: 7px; background: rgba(248,243,228,0.1); border: 1px solid rgba(248,243,228,0.14); }
+
+  /* card text */
+  .s4-ctxt  { flex: 1; }
+  .s4-cname { font-family: "Lora", serif; font-size: 17px; font-weight: 500; color: var(--cream); margin-bottom: 7px; line-height: 1.2; }
+  .s4-cdesc { font-size: 12px; color: rgba(248,243,228,0.42); line-height: 1.55; }
+  .s4-ctag  { display: inline-block; margin-top: 10px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); opacity: 0.8; }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE 5
+  ══════════════════════════════════════════════════════ */
+  .slide.s5 { background: var(--ink); color: var(--cream); }
+
+  .slide-inner {
+    position: absolute; top: 50%; left: 72px;
+    transform: translateY(-50%);
+    max-width: 800px;
+  }
+  .eyebrow {
+    font-size: 12px; letter-spacing: 0.22em;
+    text-transform: uppercase; opacity: 0.55;
+    margin-bottom: 20px;
+  }
+  .slide-inner h2 {
+    font-family: "Lora", serif;
+    font-size: 62px; font-weight: 500;
+    line-height: 1.08; letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  .slide-inner p {
+    font-size: 22px; line-height: 1.6;
+    max-width: 46ch; opacity: 0.8;
+  }
+  .slide.s5 .slide-inner h2 { color: var(--cream); }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 -->
+  <section class="slide s1 slide-dots active">
+    <header class="s1-header">
+      <span class="s1-wordmark">kosha</span>
+      <span class="s1-rule"></span>
+      <span class="s1-meta">a prologue</span>
+    </header>
+
+    <div class="s1-body">
+      <p class="s1-kicker">Personal <span class="amp">&amp;</span> Shared</p>
+      <h1 class="s1-h1">
+        The app for managing money
+        <em>when you're sharing a life</em>
+        with someone else — while keeping
+        <span class="s1-accent">your individuality.</span>
+      </h1>
+    </div>
+
+    <div class="s1-personas">
+      <figure class="s1-persona">
+        <div class="s1-blob">
+          <img src="aarav.png" alt="Aarav" />
+        </div>
+        <figcaption class="s1-name">Aarav</figcaption>
+      </figure>
+      <figure class="s1-persona">
+        <div class="s1-blob">
+          <img src="sneha.png" alt="Sneha" />
+        </div>
+        <figcaption class="s1-name">Sneha</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 -->
+  <section class="slide s2 slide-dots">
+    <header class="slide-header">
+      <span class="slide-wordmark">kosha</span>
+      <span class="slide-rule"></span>
+      <span class="slide-meta">getting the data</span>
+    </header>
+    <h2 class="s2-headline">The data has to come<br>from somewhere.</h2>
+    <p class="s2-subhead">Options I considered</p>
+    <ul class="s2-bullets" id="s2-bullets">
+      <li class="s2-bullet" data-idx="0">
+        <span class="s2-verdict-icon pass">✓</span>
+        <span class="s2-bullet-name">Account Aggregator</span>
+        <span class="s2-bullet-abbr">AA</span>
+      </li>
+      <li class="s2-bullet" data-idx="1">
+        <span class="s2-verdict-icon fail">✕</span>
+        <span class="s2-bullet-name">SMS parsing</span>
+      </li>
+      <li class="s2-bullet" data-idx="2">
+        <span class="s2-verdict-icon pass">✓</span>
+        <span class="s2-bullet-name">Bank statement</span>
+      </li>
+      <li class="s2-bullet" data-idx="3">
+        <span class="s2-verdict-icon fail">✕</span>
+        <span class="s2-bullet-name">UPI app</span>
+      </li>
+    </ul>
+    <div class="s2-divider"></div>
+    <div class="s2-right" id="s2-right"></div>
+  </section>
+
+  <!-- SLIDE 3 -->
+  <section class="slide s3 slide-dots">
+    <header class="slide-header">
+      <span class="slide-wordmark">kosha</span>
+      <span class="slide-rule"></span>
+      <span class="slide-meta">brand decision</span>
+    </header>
+    <h2 class="s3-headline">The brand has to feel like calm clarity.</h2>
+    <p class="s3-subhead">Options I considered</p>
+    <ul class="s3-bullets" id="s3-bullets">
+      <li class="s3-bullet" data-idx="0">
+        <span class="s3-verdict-icon fail">✕</span>
+        <span class="s3-bullet-name">Modern &amp; data-first</span>
+      </li>
+      <li class="s3-bullet" data-idx="1">
+        <span class="s3-verdict-icon maybe">~</span>
+        <span class="s3-bullet-name">Neubrutalism</span>
+      </li>
+      <li class="s3-bullet" data-idx="2">
+        <span class="s3-verdict-icon pass">✓</span>
+        <span class="s3-bullet-name">Nature-inspired</span>
+        <span class="s3-bullet-tag">chosen</span>
+      </li>
+    </ul>
+    <div class="s3-divider"></div>
+    <div class="s3-right" id="s3-right"></div>
+  </section>
+
+  <!-- SLIDE 4 -->
+  <section class="slide s4">
+    <header class="slide-header">
+      <span class="slide-wordmark">kosha</span>
+      <span class="slide-rule"></span>
+      <span class="slide-meta">user journey</span>
+    </header>
+
+    <h2 class="s4-hl">The user journey.</h2>
+    <p class="s4-sub">from sign-up to first shared expense</p>
+
+    <!-- Flow diagram -->
+    <div class="s4-flow-area">
+      <p class="s4-flow-lbl">the path</p>
+      <div class="s4-row">
+        <div class="s4-nd">Sign up</div>
+        <div class="s4-arr">→</div>
+        <div class="s4-bankwrap">
+          <div class="s4-nd s4-nd-hl">Connect bank</div>
+          <div class="s4-bankfork">
+            <span class="s4-fork-lbl">if unavailable</span>
+            <div class="s4-fork-row">
+              <div class="s4-nd-alt">Upload PDF</div>
+              <span class="s4-fork-sep">or</span>
+              <div class="s4-nd-alt">Add manually</div>
+            </div>
+          </div>
+        </div>
+        <div class="s4-arr">→</div>
+        <div class="s4-nd">Home</div>
+        <div class="s4-arr">→</div>
+        <div class="s4-nd">Create group</div>
+        <div class="s4-arr">→</div>
+        <div class="s4-nd">Invite members</div>
+        <div class="s4-arr">→</div>
+        <div class="s4-nd">Group view</div>
+        <div class="s4-arr">→</div>
+        <div class="s4-nd s4-nd-hl">Add transactions</div>
+      </div>
+    </div>
+
+    <!-- 3 Interaction patterns -->
+    <div class="s4-pat">
+      <p class="s4-pat-kicker">3 interaction patterns for adding shared transactions</p>
+      <div class="s4-cards">
+
+        <!-- Pattern 1: One at a time -->
+        <div class="s4-card" id="s4c1">
+          <div class="s4-phone">
+            <div class="s4-sc">
+              <div class="s4-trow hi">
+                <div class="s4-tdot"></div>
+                <div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div>
+              </div>
+              <div class="s4-btns">
+                <span class="s4-y">✓ Add</span>
+                <span class="s4-n">Skip →</span>
+              </div>
+              <div class="s4-trow" style="opacity:.35"><div class="s4-tdot"></div><div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div></div>
+              <div class="s4-trow" style="opacity:.18"><div class="s4-tdot"></div><div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div></div>
+              <div class="s4-trow" style="opacity:.1"><div class="s4-tdot"></div><div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div></div>
+            </div>
+          </div>
+          <div class="s4-ctxt">
+            <p class="s4-cname">One at a time</p>
+            <p class="s4-cdesc">Next transaction comes to you. Cursor never moves. Add in place, or nudge right to skip.</p>
+            <span class="s4-ctag">fastest for keyboard</span>
+          </div>
+        </div>
+
+        <!-- Pattern 2: Multi-select -->
+        <div class="s4-card" id="s4c2">
+          <div class="s4-phone">
+            <div class="s4-sc">
+              <div class="s4-trow"><div class="s4-cb on"></div><div class="s4-tdot"></div><div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div></div>
+              <div class="s4-trow"><div class="s4-cb on"></div><div class="s4-tdot"></div><div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div></div>
+              <div class="s4-trow"><div class="s4-cb"></div><div class="s4-tdot"></div><div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div></div>
+              <div class="s4-trow"><div class="s4-cb on"></div><div class="s4-tdot"></div><div class="s4-tinfo"><div class="s4-tln"></div><div class="s4-tln"></div></div></div>
+              <div class="s4-cfirm">Add 3 selected</div>
+            </div>
+          </div>
+          <div class="s4-ctxt">
+            <p class="s4-cname">Multi-select</p>
+            <p class="s4-cdesc">Scan the list, tick what's shared, confirm in one go.</p>
+            <span class="s4-ctag">good for review mode</span>
+          </div>
+        </div>
+
+        <!-- Pattern 3: Swipe -->
+        <div class="s4-card" id="s4c3">
+          <div class="s4-phone">
+            <div class="s4-sc">
+              <div class="s4-swlbls"><span>← skip</span><span>add →</span></div>
+              <div class="s4-swcard">
+                <div class="s4-tdot" style="margin-bottom:8px"></div>
+                <div class="s4-tln" style="margin-bottom:4px"></div>
+                <div class="s4-tln"></div>
+              </div>
+            </div>
+          </div>
+          <div class="s4-ctxt">
+            <p class="s4-cname">Swipe</p>
+            <p class="s4-cdesc">Mobile: swipe left or right. Desktop: arrow keys or buttons.</p>
+            <span class="s4-ctag">tinder for expenses</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5 -->
+  <section class="slide s5">
+    <div class="slide-inner">
+      <p class="eyebrow">05 / Close</p>
+      <h2>Thank You</h2>
+      <p>Dummy closing — what you'd do next with more time.</p>
+    </div>
+  </section>
+
+  <div class="counter"><span id="cur">1</span> / <span id="total">5</span></div>
+  <div class="controls">
+    <button id="prev" aria-label="Previous">&larr;</button>
+    <button id="next" aria-label="Next">&rarr;</button>
+  </div>
+  <div class="progress"><span id="bar"></span></div>
+</div>
+
+<script>
+  // ── Scale deck to viewport (never reflow, always 1280×720) ──
+  const deck = document.getElementById('deck');
+  function rescale() {
+    const s = Math.min(window.innerWidth / 1280, window.innerHeight / 720) * 0.97;
+    deck.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+  }
+  window.addEventListener('resize', rescale);
+  rescale();
+
+  // ── Navigation ──────────────────────────────────────────────
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total  = slides.length;
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const bar     = document.getElementById('bar');
+  const curEl   = document.getElementById('cur');
+  document.getElementById('total').textContent = total;
+
+  // ── Slide 2 sub-step logic ───────────────────────────────
+  const S2_MAX = 4;
+  let s2Step = 0;
+
+  // ── Slide 3 sub-step logic ───────────────────────────────
+  const S3_MAX = 3;
+  let s3Step = 0;
+
+  // ── Slide 4 sub-step logic ──────────────────────────────
+  const S4_MAX = 3;
+  let s4Step = 0;
+
+  function renderS4(step) {
+    for (var n = 1; n <= 3; n++) {
+      document.getElementById('s4c' + n).classList.toggle('vis', n <= step);
+    }
+  }
+
+  const s3Options = [
+    { tag: 'option 1', name: 'Modern & data-first', verdict: false,
+      images:  ['brand-inspo/modern-1.jpg', 'brand-inspo/modern-0.webp'],
+      title:   'Too common.<br/> Disappears in the crowd.',
+      body:    'Every finance app looks like this. Heck, every app in the market currently looks like this, thanks to shadcn. <br/>It\'s clean but has no soul. ',
+      footnote: 'You gotta make them feel something. You gotta have a personality.' },
+    { tag: 'option 2', name: 'Neubrutalism', verdict: false,
+      images:  ['brand-inspo/neubrutalism-1.jpg', 'brand-inspo/neubrutalism-0'],
+      title:   'Great energy. Maybe not for this one.',
+      body:    'It looks great. Might even work for a specific audience. But the aesthetic is loud and energetic. Money is already stressful. For some this might amplify that anxiety, not ease it.',
+      footnote: 'The visual boldness works against the emotional goal. <br/> But it was a strong "maybe".' },
+    { tag: 'option 3', name: 'Nature-inspired', verdict: true,
+      images:  ['brand-inspo/nature-2.webp', 'brand-inspo/nature-1.jpg', 'brand-inspo/nature-0.webp'],
+      title:   'A breath of fresh air.',
+      body:    'Money is overwhelming as it is. A nature-inspired palette creates psychological distance from that stress. It says: you can handle this.',
+      footnote: 'Plus this is unexpected. Money apps have a certain vibe, this would stand out.' }
+  ];
+
+  function renderS3(step) {
+    var bullets = document.querySelectorAll('#s3-bullets .s3-bullet');
+    var rightEl = document.getElementById('s3-right');
+    var activeIdx = step < S3_MAX ? step : -1;
+
+    bullets.forEach(function(bullet, idx) {
+      var isActive   = idx === activeIdx;
+      var isRevealed = idx < step;
+      bullet.style.opacity = (!isActive && !isRevealed) ? '0.14' : '1';
+      bullet.classList.toggle('s3-active', isActive);
+      bullet.querySelector('.s3-verdict-icon').classList.toggle('show', isRevealed || step === S3_MAX);
+    });
+
+    rightEl.style.opacity = '0';
+    setTimeout(function() {
+      if (step === S3_MAX) {
+        rightEl.innerHTML =
+          '<p class="s3-pick-label">The brand guidelines</p>' +
+          '<div class="s3-palette">' +
+            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#2f5d4f"></div><span class="s3-swatch-label">forest</span></div>' +
+            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#f4ecd8;border:1px solid rgba(31,27,22,0.14)"></div><span class="s3-swatch-label">cream</span></div>' +
+            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#c96f4a"></div><span class="s3-swatch-label">terracotta</span></div>' +
+            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#1f1b16"></div><span class="s3-swatch-label">ink</span></div>' +
+            '<div class="s3-swatch"><div class="s3-swatch-block" style="background:#e8d9b8"></div><span class="s3-swatch-label">sand</span></div>' +
+          '</div>' +
+          '<div class="s3-type-row"><span class="s3-type-specimen">Lora</span><span class="s3-type-meta">display · headings · accent</span></div>' +
+          '<div class="s3-type-row" style="margin-bottom:22px"><span class="s3-type-specimen" style="font-family:\'Nunito\',sans-serif;font-weight:500;font-size:24px">Nunito</span><span class="s3-type-meta">body · labels · UI</span></div>' +
+          '<p class="s3-principle">Gentle. Calm. Clarity.</p>';
+      } else {
+        var src = s3Options[activeIdx];
+        var imgs = src.images.map(function(url) {
+          return '<img class="s3-moodboard-img" src="' + url + '" alt="" />';
+        }).join('');
+        rightEl.innerHTML =
+          '<div class="s3-moodboard">' + imgs + '</div>' +
+          '<p class="s3-source-kicker">' + src.tag + ' — ' + src.name + '</p>' +
+          '<h3 class="s3-right-title">' + src.title + '</h3>' +
+          '<p class="s3-right-body">' + src.body + '</p>' +
+          '<p class="s3-right-footnote">' + src.footnote + '</p>';
+      }
+      rightEl.style.opacity = '1';
+    }, 220);
+  }
+
+  const s2Sources = [
+    { abbr: 'AA',  name: 'Account Aggregator', verdict: true,
+      what:    'Banks share your transaction data directly with apps via a regulated consent framework.',
+      title:   'Absolute best.',
+      body:    'Real-time data, automatic sync, single consent flow across all linked banks. But a lot of licensing required.',
+      footnote: "A lot of banks, like SBI, are still catching up. We’d be missing a big chunk of users because of this." },
+    { abbr: 'SMS', name: 'SMS parsing', verdict: false,
+      what:    'The app reads your bank SMS alerts and extracts transaction amounts and merchants.',
+      title:   'Too many problems.',
+      body:    'Misses transactions with no SMS. Sometimes adds duplicate entries. Tricky to get right.',
+      footnote: "The experience is clunky and never feels trustworthy. Not worth the engineering debt." },
+    { abbr: 'PDF', name: 'Bank statement', verdict: true,
+      what:    'You download a PDF or CSV from your bank\'s website and upload it to the app.',
+      title:   'Reliable — but you have to go get it.',
+      body:    'Complete and accurate. Best used as a once-a-month catch-all.',
+      footnote: "Nobody loves netbanking. But it's the strongest backup to AA." },
+    { abbr: 'UPI', name: 'UPI app', verdict: false,
+      what:    'The app itself is a UPI payment gateway. You make all your payments through it, and it tracks them there.',
+      title:   "Works — until it doesn't.",
+      body:    'If this is the app they make all their transactions from, then everything is already here. But users are reluctant to switch their primary payment app. + you need the licenses.',
+      footnote: 'We miss direct card payments, app fatigue, and edge cases.' }
+  ];
+
+  function renderS2(step) {
+    const bullets = document.querySelectorAll('#s2-bullets .s2-bullet');
+    const rightEl = document.getElementById('s2-right');
+    const activeIdx = step < S2_MAX ? step : -1;
+
+    bullets.forEach(function(bullet, idx) {
+      const isActive   = idx === activeIdx;
+      const isRevealed = idx < step;
+      bullet.style.opacity = (!isActive && !isRevealed) ? '0.14' : '1';
+      bullet.classList.toggle('s2-active', isActive);
+      bullet.querySelector('.s2-verdict-icon').classList.toggle('show', isRevealed || step === S2_MAX);
+    });
+
+    rightEl.style.opacity = '0';
+    setTimeout(function() {
+      if (step === S2_MAX) {
+        rightEl.innerHTML =
+          '<p class="s2-pick-label">I would pick</p>' +
+          '<div class="s2-picks">' +
+            '<div class="s2-pick-row"><span class="s2-pick-name">Account Aggregator</span><span class="s2-pick-role">primary</span></div>' +
+            '<div class="s2-pick-row"><span class="s2-pick-name">Bank statement</span><span class="s2-pick-role">monthly backup</span></div>' +
+            '<div class="s2-pick-row"><span class="s2-pick-name">Manual entry</span><span class="s2-pick-role">always available</span></div>' +
+          '</div>' +
+          '<p class="s2-pick-note">Obviously this is dependent on the company\'s direction and whether going through that licensing for AA is worth the effort. </p>';
+      } else {
+        var src = s2Sources[activeIdx];
+        rightEl.innerHTML =
+          '<p class="s2-source-kicker">' + src.abbr + ' — ' + src.name + '</p>' +
+          '<p class="s2-right-what">' + src.what + '</p>' +
+          '<h3 class="s2-right-title">' + src.title + '</h3>' +
+          '<p class="s2-right-body">' + src.body + '</p>' +
+          '<p class="s2-right-footnote">' + src.footnote + '</p>';
+      }
+      rightEl.style.opacity = '1';
+    }, 220);
+  }
+
+  let i = 0;
+
+  function updateControls() {
+    bar.style.width = ((i + 1) / total * 100) + '%';
+    curEl.textContent = i + 1;
+    prevBtn.disabled = (i === 0 && s2Step === 0 && s3Step === 0 && s4Step === 0);
+    nextBtn.disabled = (i === total - 1);
+  }
+
+  function go(n) {
+    var prev = i;
+    i = Math.max(0, Math.min(total - 1, n));
+    if (i === 1 && prev !== 1) {
+      s2Step = (n > prev) ? 0 : S2_MAX;
+      renderS2(s2Step);
+    }
+    if (i === 2 && prev !== 2) {
+      s3Step = (n > prev) ? 0 : S3_MAX;
+      renderS3(s3Step);
+    }
+    if (i === 3 && prev !== 3) {
+      s4Step = (n > prev) ? 0 : S4_MAX;
+      renderS4(s4Step);
+    }
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    updateControls();
+  }
+
+  function handleNext() {
+    if (i === 1 && s2Step < S2_MAX) { s2Step++; renderS2(s2Step); updateControls(); }
+    else if (i === 2 && s3Step < S3_MAX) { s3Step++; renderS3(s3Step); updateControls(); }
+    else if (i === 3 && s4Step < S4_MAX) { s4Step++; renderS4(s4Step); updateControls(); }
+    else go(i + 1);
+  }
+  function handlePrev() {
+    if (i === 3 && s4Step > 0) { s4Step--; renderS4(s4Step); updateControls(); }
+    else if (i === 2 && s3Step > 0) { s3Step--; renderS3(s3Step); updateControls(); }
+    else if (i === 1 && s2Step > 0) { s2Step--; renderS2(s2Step); updateControls(); }
+    else go(i - 1);
+  }
+
+  prevBtn.addEventListener('click', handlePrev);
+  nextBtn.addEventListener('click', handleNext);
+  document.addEventListener('keydown', e => {
+    if      (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                     handlePrev();
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') handleNext();
+    else if (e.key === 'Home')                         go(0);
+    else if (e.key === 'End')                          go(total - 1);
+  });
+  go(0);
+  renderS2(0);
+  renderS3(0);
+  renderS4(0);
+</script>
+</body>
+</html>
