@@ -378,6 +378,27 @@
   .s4-cdesc { font-size: 12px; color: rgba(248,243,228,0.42); line-height: 1.55; }
   .s4-ctag  { display: inline-block; margin-top: 10px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); opacity: 0.8; }
 
+  .s4-card.chosen {
+    border-color: rgba(214,107,72,0.55);
+    background: rgba(214,107,72,0.08);
+    position: relative;
+  }
+  .s4-card.chosen .s4-ctxt { padding-right: 4px; }
+  .s4-chosen-badge {
+    position: absolute; top: 10px; right: 10px;
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 8px; border-radius: 999px;
+    background: var(--terracotta); color: var(--cream);
+    font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .s4-chosen-badge::before {
+    content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--cream);
+  }
+  .s4-why {
+    margin-top: 8px; font-family: "Lora", serif; font-style: italic;
+    font-size: 11px; color: rgba(248,243,228,0.72); line-height: 1.45;
+  }
+
   /* ══════════════════════════════════════════════════════
      SLIDE 7 — Minimising effort: marking as shared (new)
   ══════════════════════════════════════════════════════ */
@@ -470,29 +491,259 @@
   .sg-goal strong { font-weight: 700; color: var(--forest); }
   .sg-goal.muted { opacity: 0.36; }
 
-  /* Layout wireframes */
-  .sg-layouts { position: absolute; bottom: 48px; left: 72px; right: 72px; opacity: 0; transform: translateY(8px); transition: opacity 320ms ease, transform 320ms ease; }
-  .sg-layouts.vis { opacity: 1; transform: translateY(0); }
-  .sg-lkick { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--terracotta); font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
-  .sg-lkick::after { content: ""; flex: 1; height: 1px; background: var(--terracotta); opacity: 0.2; }
-  .sg-lcards { display: flex; gap: 14px; }
-  .sg-lcard { flex: 1; border-radius: 10px; border: 1px solid rgba(31,27,22,0.1); background: rgba(31,27,22,0.02); padding: 12px 14px; }
-  .sg-lcard.ok { border-color: rgba(47,93,79,0.38); background: rgba(47,93,79,0.04); }
-  .sg-lcard.ok .sg-lv { color: var(--forest); }
-  .sg-lname { font-family: "Lora", serif; font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
-  .sg-lv    { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--terracotta); margin-bottom: 7px; }
-  .sg-ldesc { font-size: 12px; color: var(--ink); opacity: 0.42; line-height: 1.5; }
 
-  /* Mini wireframe sketch inside each layout card */
-  .sg-wf { height: 58px; border-radius: 5px; background: rgba(31,27,22,0.04); border: 1px solid rgba(31,27,22,0.08); margin-bottom: 8px; padding: 5px 6px; overflow: hidden; display: flex; flex-direction: column; gap: 3px; }
-  .sg-wf-b { border-radius: 3px; background: rgba(31,27,22,0.1); }
-  .sg-wf-b.hl  { background: rgba(47,93,79,0.22); }
-  .sg-wf-b.tc  { background: rgba(201,111,74,0.22); }
-  .sg-wf-b.tall { height: 24px; }
-  .sg-wf-b.mid  { height: 14px; }
-  .sg-wf-b.sm   { height: 10px; width: 60%; }
-  .sg-wf-b.xs   { height: 10px; width: 40%; }
-  .sg-wf-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+  /* ══════════════════════════════════════════════════════
+     SLIDE 8 (new) — Individuality in design
+  ══════════════════════════════════════════════════════ */
+  .slide.sindiv { background: #0f1f1a; color: var(--cream); }
+  .sindiv .slide-wordmark { color: var(--cream); }
+  .sindiv .slide-rule     { background: rgba(248,243,228,0.35); }
+  .sindiv .slide-meta     { color: rgba(232,217,184,0.75); }
+
+  .si-hl  { position: absolute; top: 108px; left: 72px; max-width: 800px;
+            font-family: "Lora", serif; font-style: italic; font-weight: 500;
+            font-size: 46px; line-height: 1.1; letter-spacing: -0.02em; color: var(--cream); }
+  .si-hl em { color: var(--terracotta); font-style: italic; }
+
+  .si-panels { position: absolute; top: 216px; left: 72px; right: 72px;
+               display: flex; gap: 12px; height: 310px; }
+
+  .si-panel {
+    flex: 1; border-radius: 14px;
+    padding: 22px 20px; display: flex; flex-direction: column; gap: 0;
+    position: relative; overflow: hidden;
+  }
+  .si-panel-private {
+    border: 1px solid rgba(248,243,228,0.08);
+    background: rgba(248,243,228,0.04);
+  }
+  .si-panel-shared {
+    flex: 1.15;
+    border: 1px solid rgba(201,111,74,0.28);
+    background: rgba(201,111,74,0.06);
+  }
+  .si-panel-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .si-panel-photo  { width: 32px; height: 32px; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid rgba(248,243,228,0.18); }
+  .si-panel-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .si-panel-icon   { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+                     display: flex; align-items: center; justify-content: center; font-size: 15px;
+                     background: rgba(201,111,74,0.2); border: 1px solid rgba(201,111,74,0.35); }
+  .si-panel-name  { font-family: "Lora", serif; font-style: italic; font-size: 18px; font-weight: 500; color: var(--cream); }
+  .si-panel-tag   { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; margin-top: 2px; }
+  .si-panel-private .si-panel-tag { color: rgba(248,243,228,0.3); }
+  .si-panel-shared .si-panel-tag  { color: var(--terracotta); opacity: 0.85; }
+
+  .si-items { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .si-item  { display: flex; align-items: center; gap: 10px;
+              padding: 8px 0; border-bottom: 1px solid rgba(248,243,228,0.06);
+              font-size: 13px; color: rgba(248,243,228,0.55); }
+  .si-item:last-child { border-bottom: none; }
+  .si-item .si-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(248,243,228,0.18); flex-shrink: 0; }
+  .si-panel-shared .si-item .si-dot { background: var(--terracotta); opacity: 0.6; }
+  .si-item .si-amt { margin-left: auto; font-size: 12px; font-weight: 600; color: rgba(248,243,228,0.3); }
+
+  .si-footer { position: absolute; bottom: 60px; left: 72px; right: 72px; }
+  .si-quote  { font-family: "Lora", serif; font-style: italic; font-size: 18px;
+               color: rgba(248,243,228,0.38); line-height: 1.5; max-width: 820px; }
+  .si-quote em { color: var(--terracotta); opacity: 0.9; }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE — Groups architecture (3 models considered)
+  ══════════════════════════════════════════════════════ */
+  .slide.sga { background: var(--cream); color: var(--ink); }
+
+  .sga-hl  { position: absolute; top: 108px; left: 72px; max-width: 820px;
+             font-family: "Lora", serif; font-weight: 500; font-size: 40px;
+             line-height: 1.14; letter-spacing: -0.02em; color: var(--forest); }
+  .sga-hl em { color: var(--terracotta); font-style: italic; }
+  .sga-sub { position: absolute; top: 198px; left: 72px; font-size: 11px;
+             letter-spacing: 0.2em; text-transform: uppercase;
+             color: var(--ink); opacity: 0.32; font-weight: 600; }
+
+  .sga-cards { position: absolute; top: 240px; left: 72px; right: 72px;
+               display: flex; gap: 20px; }
+  .sga-card  { flex: 1; border-radius: 14px;
+               border: 1px solid rgba(31,27,22,0.1);
+               background: rgba(31,27,22,0.02);
+               padding: 22px; display: flex; flex-direction: column; gap: 14px;
+               position: relative; min-height: 320px; }
+  .sga-card.win { border-color: rgba(47,93,79,0.45);
+                  background: rgba(47,93,79,0.05);
+                  box-shadow: 0 12px 30px rgba(47,93,79,0.1); }
+
+  .sga-head { display: flex; align-items: center; gap: 10px; }
+  .sga-num  { width: 28px; height: 28px; border-radius: 50%;
+              background: rgba(31,27,22,0.08); color: var(--ink);
+              display: flex; align-items: center; justify-content: center;
+              font-family: "Lora", serif; font-weight: 600; font-size: 14px; flex-shrink: 0; }
+  .sga-card.win .sga-num { background: var(--forest); color: var(--cream); }
+  .sga-verdict { margin-left: auto; font-size: 9px; letter-spacing: 0.18em;
+                 text-transform: uppercase; font-weight: 700;
+                 color: var(--ink); opacity: 0.35; }
+  .sga-card.win .sga-verdict { color: var(--forest); opacity: 1;
+                                background: rgba(47,93,79,0.12);
+                                padding: 4px 8px; border-radius: 3px; }
+
+  .sga-title { font-family: "Lora", serif; font-size: 19px; font-weight: 500;
+               color: var(--ink); line-height: 1.25; }
+  .sga-card.win .sga-title { color: var(--forest); }
+  .sga-desc  { font-size: 13px; line-height: 1.55; color: var(--ink); opacity: 0.6; }
+  .sga-tradeoff { margin-top: auto; padding-top: 12px;
+                  border-top: 1px solid rgba(31,27,22,0.07);
+                  font-size: 12px; line-height: 1.5;
+                  color: var(--ink); opacity: 0.55; font-style: italic; }
+  .sga-card.win .sga-tradeoff { color: var(--forest); opacity: 0.85; font-style: normal; }
+  .sga-tradeoff strong { font-weight: 700; font-style: normal; color: var(--terracotta); }
+
+  .sga-footer { position: absolute; bottom: 52px; left: 72px; right: 72px;
+                font-family: "Lora", serif; font-style: italic; font-size: 17px;
+                color: var(--ink); opacity: 0.55; line-height: 1.5; }
+  .sga-footer em { color: var(--terracotta); font-style: italic; opacity: 0.95; }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE — Settle by person
+  ══════════════════════════════════════════════════════ */
+  .slide.ssp { background: #1a2e27; color: var(--cream); }
+  .ssp .slide-wordmark { color: var(--cream); }
+  .ssp .slide-rule     { background: rgba(248,243,228,0.35); }
+  .ssp .slide-meta     { color: rgba(232,217,184,0.75); }
+
+  .ssp-left { position: absolute; top: 108px; left: 72px; width: 440px; }
+  .ssp-hl   { font-family: "Lora", serif; font-weight: 500; font-size: 42px;
+              line-height: 1.14; letter-spacing: -0.02em; color: var(--cream); margin-bottom: 20px; }
+  .ssp-hl em { color: var(--terracotta); font-style: italic; }
+  .ssp-body { font-size: 16px; line-height: 1.7; color: rgba(248,243,228,0.6); margin-bottom: 28px; }
+  .ssp-body strong { color: var(--cream); font-weight: 700; }
+
+  .ssp-points { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .ssp-point  { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0;
+                border-bottom: 1px solid rgba(248,243,228,0.07);
+                font-size: 14px; color: rgba(248,243,228,0.55); line-height: 1.5; }
+  .ssp-point::before { content: "→"; color: var(--terracotta); font-size: 11px;
+                       flex-shrink: 0; opacity: 0.7; margin-top: 2px; }
+  .ssp-point strong { color: var(--cream); font-weight: 600; }
+
+  /* Phone mockup */
+  .ssp-phone-wrap { position: absolute; right: 100px; top: 80px; bottom: 80px;
+                    display: flex; align-items: center; }
+  .ssp-phone { width: 240px; border-radius: 28px;
+               border: 2px solid rgba(248,243,228,0.2);
+               background: #0f1a17;
+               box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+               overflow: hidden; position: relative; }
+  .ssp-phone::before { content: ""; position: absolute; top: 0; left: 50%;
+                       transform: translateX(-50%); width: 60px; height: 4px;
+                       background: rgba(248,243,228,0.15); border-radius: 0 0 4px 4px; z-index: 1; }
+
+  .ssp-screen { padding: 24px 16px 20px; }
+
+  .ssp-screen-back { font-size: 10px; color: rgba(248,243,228,0.3); letter-spacing: 0.1em;
+                     text-transform: uppercase; margin-bottom: 16px; }
+
+  .ssp-screen-avatar { width: 52px; height: 52px; border-radius: 50%; overflow: hidden;
+                       border: 2px solid rgba(248,243,228,0.2); margin: 0 auto 10px; display: block; }
+  .ssp-screen-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .ssp-screen-name  { text-align: center; font-family: "Lora", serif; font-style: italic;
+                      font-size: 17px; color: var(--cream); margin-bottom: 4px; }
+  .ssp-screen-sub   { text-align: center; font-size: 10px; letter-spacing: 0.15em;
+                      text-transform: uppercase; color: rgba(248,243,228,0.3); margin-bottom: 16px; }
+
+  .ssp-screen-total { text-align: center; margin-bottom: 20px; }
+  .ssp-screen-total-lbl { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+                          color: rgba(248,243,228,0.35); margin-bottom: 4px; }
+  .ssp-screen-total-amt { font-family: "Lora", serif; font-size: 36px; font-weight: 500;
+                          color: var(--terracotta); }
+
+  .ssp-screen-divider { height: 1px; background: rgba(248,243,228,0.07); margin-bottom: 14px; }
+
+  .ssp-screen-breakdown-lbl { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+                               color: rgba(248,243,228,0.28); margin-bottom: 10px; }
+  .ssp-screen-row { display: flex; align-items: center; gap: 8px; padding: 7px 0;
+                    border-bottom: 1px solid rgba(248,243,228,0.05);
+                    font-size: 12px; color: rgba(248,243,228,0.55); }
+  .ssp-screen-row:last-of-type { border-bottom: none; }
+  .ssp-screen-row .icon { font-size: 13px; flex-shrink: 0; }
+  .ssp-screen-row .grp  { flex: 1; }
+  .ssp-screen-row .amt  { font-weight: 600; color: var(--terracotta); font-size: 12px; }
+
+  .ssp-screen-btn { margin-top: 18px; width: 100%; padding: 11px 0; border-radius: 20px;
+                    background: var(--terracotta); text-align: center;
+                    font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+                    color: var(--cream); }
+
+  /* ══════════════════════════════════════════════════════
+     SLIDE — Settlement auto-detect (backend callout)
+  ══════════════════════════════════════════════════════ */
+  .slide.sas { background: #243c33; color: var(--cream); }
+  .sas .slide-wordmark { color: var(--cream); }
+  .sas .slide-rule     { background: rgba(248,243,228,0.35); }
+  .sas .slide-meta     { color: rgba(232,217,184,0.75); }
+
+  .sas-hl  { position: absolute; top: 108px; left: 72px; max-width: 760px;
+             font-family: "Lora", serif; font-style: italic; font-weight: 500;
+             font-size: 44px; line-height: 1.1; letter-spacing: -0.02em; color: var(--cream); }
+  .sas-hl em { color: var(--terracotta); font-style: italic; }
+  .sas-sub { position: absolute; top: 218px; left: 72px; font-size: 11px;
+             letter-spacing: 0.22em; text-transform: uppercase;
+             color: var(--terracotta); opacity: 0.9; font-weight: 700; }
+
+  .sas-stage { position: absolute; top: 268px; left: 72px; right: 72px;
+               display: flex; align-items: center; gap: 28px; }
+
+  .sas-bank-col { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+  .sas-bank-lbl { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+                  font-weight: 700; color: rgba(248,243,228,0.4); margin-bottom: 4px; }
+  .sas-txn { padding: 14px 16px; border-radius: 10px;
+             background: rgba(248,243,228,0.06);
+             border: 1px solid rgba(248,243,228,0.1);
+             display: flex; align-items: center; gap: 12px; }
+  .sas-txn-avatar { width: 32px; height: 32px; border-radius: 50%;
+                    overflow: hidden; flex-shrink: 0;
+                    border: 2px solid rgba(248,243,228,0.18); }
+  .sas-txn-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .sas-txn-body { flex: 1; }
+  .sas-txn-merchant { font-family: "Lora", serif; font-size: 14px; color: var(--cream);
+                      margin-bottom: 3px; }
+  .sas-txn-meta { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+                  color: rgba(248,243,228,0.4); font-weight: 600; }
+  .sas-txn-amt { font-family: "Lora", serif; font-size: 16px; font-weight: 500; }
+  .sas-txn-amt.out { color: var(--terracotta); }
+  .sas-txn-amt.in  { color: #7bc47a; }
+
+  .sas-arrow { display: flex; flex-direction: column; align-items: center; gap: 8px;
+               flex-shrink: 0; width: 110px; }
+  .sas-arrow-line { width: 100%; height: 1px; background: var(--terracotta); opacity: 0.5;
+                    position: relative; }
+  .sas-arrow-line::after { content: "→"; position: absolute; right: -6px; top: 50%;
+                           transform: translateY(-50%); color: var(--terracotta); font-size: 16px; }
+  .sas-arrow-lbl { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+                   color: var(--terracotta); font-weight: 700; }
+
+  .sas-prompt { flex: 1; padding: 20px; border-radius: 12px;
+                background: rgba(201,111,74,0.12);
+                border: 1px solid rgba(201,111,74,0.4); }
+  .sas-prompt-kicker { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+                       font-weight: 700; color: var(--terracotta); margin-bottom: 10px; }
+  .sas-prompt-body { font-family: "Lora", serif; font-size: 18px; color: var(--cream);
+                     line-height: 1.4; margin-bottom: 14px; }
+  .sas-prompt-actions { display: flex; gap: 8px; }
+  .sas-btn { padding: 6px 14px; border-radius: 18px; font-size: 11px; font-weight: 700;
+             letter-spacing: 0.05em; }
+  .sas-btn.y { background: var(--terracotta); color: var(--cream); }
+  .sas-btn.n { background: transparent; color: rgba(248,243,228,0.5);
+               border: 1px solid rgba(248,243,228,0.2); }
+
+  .sas-signals { position: absolute; bottom: 90px; left: 72px; right: 72px;
+                 display: flex; gap: 20px; }
+  .sas-signal { flex: 1; padding-left: 14px; border-left: 2px solid rgba(201,111,74,0.45); }
+  .sas-signal-lbl { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+                    font-weight: 700; color: var(--terracotta); margin-bottom: 5px; }
+  .sas-signal-body { font-size: 12px; line-height: 1.5; color: rgba(248,243,228,0.6); }
+
+  .sas-footer { position: absolute; bottom: 36px; left: 72px; right: 72px;
+                font-family: "Lora", serif; font-style: italic; font-size: 14px;
+                color: rgba(248,243,228,0.4); }
+  .sas-footer em { color: var(--terracotta); opacity: 0.95; font-style: italic; }
 
   /* ══════════════════════════════════════════════════════
      SLIDE 9 — Close (was slide 8)
@@ -733,7 +984,8 @@
       <p class="s4-pat-kicker">3 interaction patterns for adding shared transactions</p>
       <div class="s4-cards">
 
-        <div class="s4-card" id="s4c1">
+        <div class="s4-card chosen" id="s4c1">
+          <span class="s4-chosen-badge">chosen</span>
           <div class="s4-phone">
             <div class="s4-sc">
               <div class="s4-trow hi">
@@ -753,6 +1005,7 @@
             <p class="s4-cname">One at a time</p>
             <p class="s4-cdesc">Next transaction comes to you. Cursor never moves. Add in place, or nudge right to skip.</p>
             <span class="s4-ctag">fastest for keyboard</span>
+            <p class="s4-why">Fastest to ship, works on phone and desktop — obvious pick for the MVP.</p>
           </div>
         </div>
 
@@ -841,49 +1094,80 @@
       </div>
     </div>
 
-    <!-- Layout options — revealed on step 3 -->
-    <div class="sg-layouts" id="sg-layouts">
-      <p class="sg-lkick">3 layouts I considered for each view</p>
-      <div class="sg-lcards">
-        <!-- Option A: Dense dashboard -->
-        <div class="sg-lcard">
-          <div class="sg-wf">
-            <div class="sg-wf-b mid"></div>
-            <div class="sg-wf-2col">
-              <div class="sg-wf-b xs"></div><div class="sg-wf-b xs"></div>
-              <div class="sg-wf-b xs"></div><div class="sg-wf-b xs"></div>
-            </div>
+  </section>
+
+  <!-- SLIDE 8 (new) — Individuality in design -->
+  <section class="slide sindiv">
+    <header class="slide-header">
+      <span class="slide-wordmark">kosha</span>
+      <span class="slide-rule"></span>
+      <span class="slide-meta">design philosophy</span>
+    </header>
+
+    <h2 class="si-hl">Shared expenses is<br><em>part of the whole.</em></h2>
+
+    <div class="si-panels">
+
+      <!-- Aarav private -->
+      <div class="si-panel si-panel-private">
+        <div class="si-panel-header">
+          <div class="si-panel-photo"><img src="aarav.png" alt="Aarav" /></div>
+          <div>
+            <p class="si-panel-name">Aarav</p>
+            <p class="si-panel-tag">his space — not shared</p>
           </div>
-          <div class="sg-lv">✕ rejected</div>
-          <div class="sg-lname">Dense dashboard</div>
-          <div class="sg-ldesc">All metrics at once. Finance app default. Paralyzes reluctant trackers — too many places to look.</div>
         </div>
-        <!-- Option B: Settlement-first (Aarav) -->
-        <div class="sg-lcard ok">
-          <div class="sg-wf">
-            <div class="sg-wf-b tc tall"></div>
-            <div class="sg-wf-b sm"></div>
-          </div>
-          <div class="sg-lv">✓ Aarav's home</div>
-          <div class="sg-lname">Settlement-first</div>
-          <div class="sg-ldesc">Hero = the number you owe or are owed. One glance, done. Drill down only if curious.</div>
-        </div>
-        <!-- Option C: Category-first (Sneha) -->
-        <div class="sg-lcard ok">
-          <div class="sg-wf">
-            <div class="sg-wf-b hl mid"></div>
-            <div class="sg-wf-b hl sm"></div>
-            <div class="sg-wf-b xs"></div>
-          </div>
-          <div class="sg-lv">✓ Sneha's home</div>
-          <div class="sg-lname">Category-first</div>
-          <div class="sg-ldesc">Spend bars at top. Goals progress below. Same data — different hierarchy. The planner's entry point.</div>
-        </div>
+        <ul class="si-items">
+          <li class="si-item"><span class="si-dot"></span>Bike loan EMI<span class="si-amt">₹4,200</span></li>
+          <li class="si-item"><span class="si-dot"></span>Spotify<span class="si-amt">₹119</span></li>
+          <li class="si-item"><span class="si-dot"></span>Gym membership<span class="si-amt">₹800</span></li>
+          <li class="si-item"><span class="si-dot"></span>Petrol<span class="si-amt">₹2,100</span></li>
+        </ul>
       </div>
+
+      <!-- Shared -->
+      <div class="si-panel si-panel-shared">
+        <div class="si-panel-header">
+          <div class="si-panel-icon">⟷</div>
+          <div>
+            <p class="si-panel-name">shared</p>
+            <p class="si-panel-tag">both own this</p>
+          </div>
+        </div>
+        <ul class="si-items">
+          <li class="si-item"><span class="si-dot"></span>Rent<span class="si-amt">₹18,000</span></li>
+          <li class="si-item"><span class="si-dot"></span>Groceries<span class="si-amt">₹3,400</span></li>
+          <li class="si-item"><span class="si-dot"></span>Weekend trip<span class="si-amt">₹6,200</span></li>
+          <li class="si-item"><span class="si-dot"></span>Electricity bill<span class="si-amt">₹1,100</span></li>
+          <li class="si-item"><span class="si-dot"></span>OTT subscriptions<span class="si-amt">₹648</span></li>
+        </ul>
+      </div>
+
+      <!-- Sneha private -->
+      <div class="si-panel si-panel-private">
+        <div class="si-panel-header">
+          <div class="si-panel-photo"><img src="sneha.png" alt="Sneha" /></div>
+          <div>
+            <p class="si-panel-name">Sneha</p>
+            <p class="si-panel-tag">her space — not shared</p>
+          </div>
+        </div>
+        <ul class="si-items">
+          <li class="si-item"><span class="si-dot"></span>Family contributions<span class="si-amt">₹5,000</span></li>
+          <li class="si-item"><span class="si-dot"></span>SIP<span class="si-amt">₹2,000</span></li>
+          <li class="si-item"><span class="si-dot"></span>Yoga classes<span class="si-amt">₹1,200</span></li>
+          <li class="si-item"><span class="si-dot"></span>Book club<span class="si-amt">₹350</span></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="si-footer">
+      <p class="si-quote">We didn't just say individuality matters. The app is built so it <em>can't be any other way.</em></p>
     </div>
   </section>
 
-  <!-- SLIDE 8 — Minimising effort: marking as shared (was slide 7) -->
+  <!-- SLIDE 9 — Minimising effort: marking as shared -->
   <section class="slide s8">
     <header class="slide-header">
       <span class="slide-wordmark">kosha</span>
@@ -977,17 +1261,203 @@
     </div>
   </section>
 
+  <!-- SLIDE — Groups architecture -->
+  <section class="slide sga slide-dots">
+    <header class="slide-header">
+      <span class="slide-wordmark">kosha</span>
+      <span class="slide-rule"></span>
+      <span class="slide-meta">how groups work — the hard question</span>
+    </header>
+
+    <h2 class="sga-hl">Groups change. People leave.<br><em>Who pays for the wifi bill?</em></h2>
+    <p class="sga-sub">Flatmates move out. Friends join a trip. Groups are never really frozen. Here's how I thought about it.</p>
+
+    <div class="sga-cards">
+
+      <!-- Option 1 -->
+      <div class="sga-card">
+        <div class="sga-head">
+          <span class="sga-num">1</span>
+          <span class="sga-verdict">tricky</span>
+        </div>
+        <p class="sga-title">Track who joined and left — and when.</p>
+        <p class="sga-desc">Sneha left on the 15th, so she won't be charged for the wifi bill that comes on the 20th. Expenses split themselves based on who was in at the time.</p>
+        <p class="sga-tradeoff">Sounds fair — but it's hard to reason about. Nobody remembers the exact date someone moved out.</p>
+      </div>
+
+      <!-- Option 2 -->
+      <div class="sga-card">
+        <div class="sga-head">
+          <span class="sga-num">2</span>
+          <span class="sga-verdict">too many groups</span>
+        </div>
+        <p class="sga-title">Lock the group. New dynamic? New group.</p>
+        <p class="sga-desc">Members can't change. If someone joins or leaves, you create a fresh group. History stays clean — new people, new slate. You can still settle up by person across groups.</p>
+        <p class="sga-tradeoff">But what if you made a mistake? And flatmates change all the time. You'd end up with ten groups for the same flat.</p>
+      </div>
+
+      <!-- Option 3 — winner -->
+      <div class="sga-card win">
+        <div class="sga-head">
+          <span class="sga-num">3</span>
+          <span class="sga-verdict">what I built</span>
+        </div>
+        <p class="sga-title">Each expense has its own member list. (The Splitwise way.)</p>
+        <p class="sga-desc">It doesn't matter who joined the group when. Every expense is its own thing — you pick who's splitting it right then. One group for the flat, one for the trip, one for the party. Settle up by person across all of them.</p>
+        <p class="sga-tradeoff"><strong>No history to manage. No dates to track. Each expense just knows what it knows.</strong></p>
+      </div>
+
+    </div>
+
+    <p class="sga-footer">The group is just a label. <em>The expense is what actually matters.</em></p>
+  </section>
+
+  <!-- SLIDE — Settle by person -->
+  <section class="slide ssp">
+    <header class="slide-header">
+      <span class="slide-wordmark">kosha</span>
+      <span class="slide-rule"></span>
+      <span class="slide-meta">settle up — by person, not by group</span>
+    </header>
+
+    <div class="ssp-left">
+      <h2 class="ssp-hl">You don't pay<br>a group back.<br>You pay <em>a person.</em></h2>
+      <p class="ssp-body">
+        You share a flat with Sneha. You also went on a trip with her. And split Priya's birthday dinner.<br><br>
+        That's three different groups — but at the end of the month, you just want to know:
+        <strong>what do I owe Sneha, total?</strong>
+      </p>
+      <ul class="ssp-points">
+        <li class="ssp-point"><strong>One number per person</strong> — across every group you share with them</li>
+        <li class="ssp-point"><strong>Breakdown by group</strong> — so you can see exactly where the balance came from</li>
+        <li class="ssp-point"><strong>One payment to settle all of it</strong> — no group-by-group math</li>
+      </ul>
+    </div>
+
+    <!-- Phone mockup -->
+    <div class="ssp-phone-wrap">
+      <div class="ssp-phone">
+        <div class="ssp-screen">
+          <p class="ssp-screen-back">← back</p>
+
+          <img class="ssp-screen-avatar" src="sneha.png" alt="Sneha" />
+          <p class="ssp-screen-name">Sneha</p>
+          <p class="ssp-screen-sub">you owe her</p>
+
+          <div class="ssp-screen-total">
+            <p class="ssp-screen-total-lbl">total balance</p>
+            <p class="ssp-screen-total-amt">₹1,240</p>
+          </div>
+
+          <div class="ssp-screen-divider"></div>
+
+          <p class="ssp-screen-breakdown-lbl">breakdown</p>
+          <div class="ssp-screen-row">
+            <span class="icon">🏠</span>
+            <span class="grp">Flat — May</span>
+            <span class="amt">₹800</span>
+          </div>
+          <div class="ssp-screen-row">
+            <span class="icon">✈️</span>
+            <span class="grp">Goa trip</span>
+            <span class="amt">₹340</span>
+          </div>
+          <div class="ssp-screen-row">
+            <span class="icon">🎂</span>
+            <span class="grp">Priya's birthday</span>
+            <span class="amt">₹100</span>
+          </div>
+
+          <div class="ssp-screen-btn">Pay ₹1,240</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE — Settlement auto-detect -->
+  <section class="slide sas">
+    <header class="slide-header">
+      <span class="slide-wordmark">kosha</span>
+      <span class="slide-rule"></span>
+      <span class="slide-meta">when someone pays the other back</span>
+    </header>
+
+    <h2 class="sas-hl">When Aarav pays Sneha back,<br>kosha <em>already knows.</em></h2>
+    <p class="sas-sub">Both their banks show matching payments. App spots it before anyone says anything.</p>
+
+    <div class="sas-stage">
+      <!-- Left: two mirror txns -->
+      <div class="sas-bank-col">
+        <p class="sas-bank-lbl">what their banks show</p>
+        <div class="sas-txn">
+          <div class="sas-txn-avatar"><img src="aarav.png" alt="Aarav" /></div>
+          <div class="sas-txn-body">
+            <p class="sas-txn-merchant">UPI · to SNEHA G</p>
+            <p class="sas-txn-meta">May 28 · 9:14 PM</p>
+          </div>
+          <span class="sas-txn-amt out">−₹500</span>
+        </div>
+        <div class="sas-txn">
+          <div class="sas-txn-avatar"><img src="sneha.png" alt="Sneha" /></div>
+          <div class="sas-txn-body">
+            <p class="sas-txn-merchant">UPI · from AARAV K</p>
+            <p class="sas-txn-meta">May 28 · 9:14 PM</p>
+          </div>
+          <span class="sas-txn-amt in">+₹500</span>
+        </div>
+      </div>
+
+      <!-- Middle arrow -->
+      <div class="sas-arrow">
+        <span class="sas-arrow-lbl">kosha notices</span>
+        <div class="sas-arrow-line"></div>
+      </div>
+
+      <!-- Right: prompt -->
+      <div class="sas-prompt">
+        <p class="sas-prompt-kicker">one tap to close the tab</p>
+        <p class="sas-prompt-body">Looks like Aarav paid Sneha ₹500. Was this him settling up?</p>
+        <div class="sas-prompt-actions">
+          <span class="sas-btn y">✓ Accept</span>
+          <span class="sas-btn n">Not this</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sas-signals">
+      <div class="sas-signal">
+        <p class="sas-signal-lbl">same amount</p>
+        <p class="sas-signal-body">Aarav sent ₹500. Sneha received ₹500. The numbers match.</p>
+      </div>
+      <div class="sas-signal">
+        <p class="sas-signal-lbl">opposite directions</p>
+        <p class="sas-signal-body">One side lost money, the other gained it — at the same moment.</p>
+      </div>
+      <div class="sas-signal">
+        <p class="sas-signal-lbl">name matches</p>
+        <p class="sas-signal-body">Aarav's payment says "to SNEHA G". That's her.</p>
+      </div>
+      <div class="sas-signal">
+        <p class="sas-signal-lbl">happened together</p>
+        <p class="sas-signal-body">Both transactions landed within seconds of each other.</p>
+      </div>
+    </div>
+
+    <p class="sas-footer">Every other app makes you log this manually. kosha sees both their banks — <em>so it can just ask.</em></p>
+  </section>
+
   <!-- SLIDE 9 — Close -->
   <section class="slide s9">
     <div class="slide-inner">
-      <p class="eyebrow">09 / What's next</p>
+      <p class="eyebrow">12 / What's next</p>
       <h2>If I had 3 more weeks.</h2>
       <ul class="s8-list">
         <li>Track savings goals. Each goal is a plant that slowly grows as and when the amount increases.</li>
         <li>The proportional split. If Aarav earns 1.5× more, the couple may wanna split by income proportion. Adding that option.</li>
         <li>Category-wise split. Some expenses might not be shared equally. Some married couples I know, split groveries 50/50 but rent is income-based.</li>
+        <li>Category-wise breakdown view. Detailed expense analytics by category — geared toward Sneha, who wants to see where the money actually goes.</li>
       </ul>
-      <p class="s8-note">The hard part was never the tracking. It's making shared money feel fair — and designing for that.</p>
+      <!-- <p class="s8-note">The hard part was never the tracking. It's making shared money feel fair — and designing for that.</p> -->
     </div>
   </section>
 
@@ -1107,7 +1577,6 @@
   function renderGoals(step) {
     document.getElementById('sgca').classList.toggle('vis', step >= 1);
     document.getElementById('sgcs').classList.toggle('vis', step >= 2);
-    document.getElementById('sg-layouts').classList.toggle('vis', step >= 3);
   }
 
   // ── Brand slide (slide 5, index 4) ─────────────────────
@@ -1208,7 +1677,7 @@
     if (i === 4 && prev !== 4) { sBrandStep   = fwd ? 0 : S_BRAND_MAX;   renderBrand(sBrandStep); }
     if (i === 5 && prev !== 5) { sJourneyStep = fwd ? 0 : S_JOURNEY_MAX; renderJourney(sJourneyStep); }
     if (i === 6 && prev !== 6) { sGoalsStep   = fwd ? 0 : S_GOALS_MAX;   renderGoals(sGoalsStep); }
-    if (i === 7 && prev !== 7) { sSharedStep  = fwd ? 0 : S_SHARED_MAX;  renderShared(sSharedStep); }
+    if (i === 8 && prev !== 8) { sSharedStep  = fwd ? 0 : S_SHARED_MAX;  renderShared(sSharedStep); }
     slides.forEach(function(s, idx) { s.classList.toggle('active', idx === i); });
     updateControls();
   }
@@ -1219,12 +1688,12 @@
     else if (i === 4 && sBrandStep   < S_BRAND_MAX)   { sBrandStep++;   renderBrand(sBrandStep);     updateControls(); }
     else if (i === 5 && sJourneyStep < S_JOURNEY_MAX) { sJourneyStep++; renderJourney(sJourneyStep); updateControls(); }
     else if (i === 6 && sGoalsStep   < S_GOALS_MAX)   { sGoalsStep++;   renderGoals(sGoalsStep);     updateControls(); }
-    else if (i === 7 && sSharedStep  < S_SHARED_MAX)  { sSharedStep++;  renderShared(sSharedStep);   updateControls(); }
+    else if (i === 8 && sSharedStep  < S_SHARED_MAX)  { sSharedStep++;  renderShared(sSharedStep);   updateControls(); }
     else go(i + 1);
   }
 
   function handlePrev() {
-    if      (i === 7 && sSharedStep  > 0) { sSharedStep--;  renderShared(sSharedStep);   updateControls(); }
+    if      (i === 8 && sSharedStep  > 0) { sSharedStep--;  renderShared(sSharedStep);   updateControls(); }
     else if (i === 6 && sGoalsStep   > 0) { sGoalsStep--;   renderGoals(sGoalsStep);     updateControls(); }
     else if (i === 5 && sJourneyStep > 0) { sJourneyStep--; renderJourney(sJourneyStep); updateControls(); }
     else if (i === 4 && sBrandStep   > 0) { sBrandStep--;   renderBrand(sBrandStep);     updateControls(); }
